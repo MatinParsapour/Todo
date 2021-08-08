@@ -1,13 +1,10 @@
 package entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class ToDoTable {
+public class Tasks {
     @Id
     @GeneratedValue
     private int id;
@@ -21,13 +18,16 @@ public class ToDoTable {
     @Column(name = "creationdate")
     private LocalDate creationDate;
 
-    public ToDoTable(String title,String body, LocalDate creationDate){
+    @ManyToOne
+    private User user;
+
+    public Tasks(){
+    }
+
+    public Tasks(String title, String body, LocalDate creationDate){
         this.title = title;
         this.body = body;
         this.creationDate = creationDate;
-    }
-
-    public ToDoTable(){
     }
 
     public int getId() {
@@ -60,5 +60,13 @@ public class ToDoTable {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
