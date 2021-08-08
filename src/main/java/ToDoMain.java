@@ -1,3 +1,5 @@
+import repository.UserRepository;
+import service.UserService;
 import util.HibernateUtil;
 
 import javax.persistence.EntityManager;
@@ -8,7 +10,8 @@ import java.util.Scanner;
 public class ToDoMain {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        UserRepository userRepository = new UserRepository(entityManagerFactory);
+        UserService menu = new UserService(entityManagerFactory, userRepository);
 
         System.out.println("<><><> Welcome <><><>");
         while(true){
@@ -21,7 +24,7 @@ public class ToDoMain {
                 System.out.print("Option : ");
                 int choice = new Scanner(System.in).nextInt();
                 if(choice == 1){
-                    // menu.signUp
+                    menu.signUp();
                 }else if(choice == 2){
                     // menu.logIn
                 }else if(choice == 3){
