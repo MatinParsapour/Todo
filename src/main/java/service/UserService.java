@@ -1,10 +1,13 @@
 package service;
 
+import entity.Tasks;
 import entity.User;
+import repository.TaskRepository;
 import repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -13,12 +16,17 @@ import java.util.regex.Pattern;
 
 public class UserService {
     static Scanner input = new Scanner(System.in);
+
     private EntityManagerFactory entityManagerFactory;
     private UserRepository userRepository;
+    private TaskRepository taskRepository;
 
-    public UserService(EntityManagerFactory entityManagerFactory,UserRepository userRepository){
+    public UserService(EntityManagerFactory entityManagerFactory,
+                       UserRepository userRepository,
+                       TaskRepository taskRepository){
         this.entityManagerFactory = entityManagerFactory;
         this.userRepository = userRepository;
+        this.taskRepository = taskRepository;
     }
 
     public void signUp(){
@@ -31,8 +39,10 @@ public class UserService {
         User user = new User(name,username,password);
         entityManager.persist(user);
         entityManager.getTransaction().commit();
+        logIn();
     }
     public void logIn(){
+        TaskService taskService = new TaskService(taskRepository);
         System.out.println("<><><> Log In <><><>");
         boolean exit = false;
         while(!exit){
@@ -75,7 +85,7 @@ public class UserService {
                         if(choice == 1){
                             System.out.println("Now you see you activities");
                         }else if(choice == 2){
-                            System.out.println("Now you can add an activity");
+                            taskService.addActivity(userRepository.findUser(username));
                         }else if(choice == 3){
                             System.out.println("Now you can change status of an activity");
                         }else if(choice == 4){
@@ -117,7 +127,7 @@ public class UserService {
         while (true) {
             System.out.println("     username   ");
             username = new Scanner(System.in).next();
-            boolean checkUsername = isDouplicate(username);
+            boolean checkUsername = isDuplicate(username);
             if(checkUsername){
                 System.out.println("There is a username like this");
                 System.out.println("try again");
@@ -144,7 +154,7 @@ public class UserService {
         }
         return password;
     }
-    private boolean isDouplicate(String username){
+    private boolean isDuplicate(String username){
         List<User> users = userRepository.findAll();
         for(int counter = 0 ; counter < users.size() ; counter++){
             if(users.get(counter).getUsername().equals(username)){

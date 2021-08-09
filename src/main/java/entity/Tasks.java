@@ -19,7 +19,7 @@ public class Tasks {
     private LocalDate creationDate;
 
     @Column(name = "status")
-    private String status;
+    private String status = "open";
 
     @ManyToOne
     private User user;
@@ -27,10 +27,11 @@ public class Tasks {
     public Tasks(){
     }
 
-    public Tasks(String title, String body, LocalDate creationDate){
+    public Tasks(String title, String body, LocalDate creationDate, User user){
         this.title = title;
         this.body = body;
         this.creationDate = creationDate;
+        this.user = user;
     }
 
     public int getId() {
@@ -71,5 +72,13 @@ public class Tasks {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

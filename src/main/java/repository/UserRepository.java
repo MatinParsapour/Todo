@@ -19,4 +19,14 @@ public class UserRepository {
         List<User> users = entityManager.createQuery("FROM User",User.class).getResultList();
         return users;
     }
+    public entity.User findUser(String username){
+        List<User>  users = findAll();
+        User user = new User();
+        for(int counter = 0 ; counter< users.size() ; counter++){
+            if(users.get(counter).getUsername().equals(username)){
+                user = users.get(counter);
+            }
+        }
+        return user;
+    }
 }
