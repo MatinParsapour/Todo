@@ -19,15 +19,14 @@ public class TaskRepository {
 
     public List<Tasks> findAllActivities(){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Tasks> tasks = entityManager.createQuery("FROM Tasks",Tasks.class).getResultList();
-        return tasks;
+        return entityManager.createQuery("FROM Tasks",Tasks.class).getResultList();
     }
     public entity.Tasks findActivity(String activityField){
         List<Tasks> tasks = findAllActivities();
         Tasks tasks1 = new Tasks();
-        for(int counter = 0 ; counter < tasks.size() ; counter++){
-            if(tasks.get(counter).getTitle().equals(activityField) || tasks.get(counter).getBody().equals(activityField)){
-                tasks1 = tasks.get(counter);
+        for (Tasks task : tasks) {
+            if (task.getTitle().equals(activityField) || task.getBody().equals(activityField)) {
+                tasks1 = task;
             }
         }
         return tasks1;
@@ -102,11 +101,11 @@ public class TaskRepository {
                 tasks = query.getResultList();
             }
         }
-        for(int counter = 0; counter < tasks.size() ; counter++){
-            System.out.println("title : " + tasks.get(counter).getTitle()
-            + " content : " + tasks.get(counter).getBody()
-            + " date : " + tasks.get(counter).getCreationDate()
-            + " status : " + tasks.get(counter).getStatus());
+        for (Tasks task : tasks) {
+            System.out.println("title : " + task.getTitle()
+                    + " content : " + task.getBody()
+                    + " date : " + task.getCreationDate()
+                    + " status : " + task.getStatus());
         }
     }
     public void updateTitle(Tasks tasks,String title){

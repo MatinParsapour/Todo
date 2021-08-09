@@ -91,7 +91,7 @@ public class UserService {
                         }else if(choice == 3){
                             taskService.changeStatus(userRepository.findUser(username));
                         }else if(choice == 4){
-                            chagnePassword(userRepository.findUser(username));
+                            changePassword(userRepository.findUser(username));
                         }else if(choice == 5){
                             changeUsername(userRepository.findUser(username));
                         }else if(choice == 6){
@@ -182,8 +182,8 @@ public class UserService {
         }
         return false;
     }
-    private void chagnePassword(User user){
-        System.out.println("Youe password : " + user.getPassword());
+    private void changePassword(User user){
+        System.out.println("Your password : " + user.getPassword());
         while(true){
             try{
                 System.out.println("Do you want to change password");
@@ -192,6 +192,7 @@ public class UserService {
                 if(choice == 1){
                     String password = password();
                     userRepository.updatePassword(password,user);
+                    break;
                 }
                 else if(choice == 2){
                     break;
@@ -212,6 +213,7 @@ public class UserService {
                 if(choice == 1){
                     String username = username();
                     userRepository.updateUsername(username,user);
+                    break;
                 }
                 else if(choice == 2){
                     break;

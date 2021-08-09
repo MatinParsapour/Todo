@@ -74,14 +74,14 @@ public class TaskService {
     }
 
     public void changeStatus(User user) {
-        List<Tasks> tasks = taskRepository.findUserActivities(user);
-        for (int counter = 0; counter < tasks.size(); counter++) {
-            System.out.println("Title : " + tasks.get(counter).getTitle()
-                    + " Content : " + tasks.get(counter).getBody()
-                    + " Status : " + tasks.get(counter).getStatus());
-        }
         while (true) {
             try {
+                List<Tasks> tasks = taskRepository.findUserActivities(user);
+                for (int counter = 0; counter < tasks.size(); counter++) {
+                    System.out.println("Title : " + tasks.get(counter).getTitle()
+                            + " Content : " + tasks.get(counter).getBody()
+                            + " Status : " + tasks.get(counter).getStatus());
+                }
                 System.out.println("Do you want to change status of a task?");
                 System.out.println("1.Yes                              2.No");
                 int choice = new Scanner(System.in).nextInt();
@@ -155,7 +155,7 @@ public class TaskService {
                 System.out.println("            4.exit           ");
                 System.out.println("-----------------------------");
                 int baseOn = new Scanner(System.in).nextInt();
-                if(baseOn >= 1 || baseOn <=3){
+                if(baseOn == 1 || baseOn == 2 || baseOn ==3){
                     System.out.println("--------------------");
                     System.out.println("    1.Ascending     ");
                     System.out.println("    2.Descending    ");
@@ -176,13 +176,13 @@ public class TaskService {
     }
 
     public void changeTitle(User user){
-        List<Tasks> activities = taskRepository.findUserActivities(user);
-        for(int counter = 0 ; counter < activities.size(); counter++){
-            System.out.println("Title : " + activities.get(counter).getTitle() +
-            " Content : " + activities.get(counter).getBody());
-        }
         while(true)
             try{
+                List<Tasks> activities = taskRepository.findUserActivities(user);
+                for(int counter = 0 ; counter < activities.size(); counter++){
+                    System.out.println("Title : " + activities.get(counter).getTitle() +
+                            " Content : " + activities.get(counter).getBody());
+                }
                 System.out.println("Do you want to change title?");
                 System.out.println("1.Yes                   2.No");
                 int choice = new Scanner(System.in).nextInt();
@@ -213,13 +213,13 @@ public class TaskService {
             }
     }
     public void changeContent(User user){
-        List<Tasks> activities = taskRepository.findUserActivities(user);
-        for(int counter = 0 ; counter < activities.size(); counter++){
-            System.out.println("Title : " + activities.get(counter).getTitle() +
-                    " Content : " + activities.get(counter).getBody());
-        }
         while(true)
             try{
+                List<Tasks> activities = taskRepository.findUserActivities(user);
+                for(int counter = 0 ; counter < activities.size(); counter++){
+                    System.out.println("Title : " + activities.get(counter).getTitle() +
+                            " Content : " + activities.get(counter).getBody());
+                }
                 System.out.println("Do you want to change title?");
                 System.out.println("1.Yes                   2.No");
                 int choice = new Scanner(System.in).nextInt();
@@ -238,7 +238,7 @@ public class TaskService {
                         }
                     }else{
                         System.out.println("enter content : ");
-                        String newContent = new Scanner(System.in).next();
+                        String newContent = new Scanner(System.in).nextLine();
                         taskRepository.updateContent(taskRepository.findActivity(title),newContent);
                     }
                 }else{
