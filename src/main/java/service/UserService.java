@@ -83,7 +83,7 @@ public class UserService {
                         System.out.println("<><><><><><><><><><><><><><><><><><><>");
                         int choice = new Scanner(System.in).nextInt();
                         if(choice == 1){
-                            System.out.println("Now you see you activities");
+                            taskService.seeActivities(userRepository.findUser(username));
                         }else if(choice == 2){
                             taskService.addActivity(userRepository.findUser(username));
                         }else if(choice == 3){

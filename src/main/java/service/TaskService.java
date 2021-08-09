@@ -144,4 +144,34 @@ public class TaskService {
             }
         }
     }
+
+    public void seeActivities(User user){
+        while(true){
+            try{
+                System.out.println("-----------------------------");
+                System.out.println("       1.Based on Date       ");
+                System.out.println("       2.based on Title      ");
+                System.out.println("       3.based on status     ");
+                System.out.println("            4.exit           ");
+                System.out.println("-----------------------------");
+                int baseOn = new Scanner(System.in).nextInt();
+                if(baseOn >= 1 || baseOn <=3){
+                    System.out.println("--------------------");
+                    System.out.println("    1.Ascending     ");
+                    System.out.println("    2.Descending    ");
+                    System.out.println("--------------------");
+                    int display = new Scanner(System.in).nextInt();
+                    taskRepository.displayActivities(baseOn,display,user);
+                }else if(baseOn == 4){
+                    break;
+                }else{
+                    System.out.println("You should choose between menu options");
+                    System.out.println("try again");
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+    }
 }
