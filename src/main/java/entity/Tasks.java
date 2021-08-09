@@ -18,6 +18,9 @@ public class Tasks {
     @Column(name = "creationdate")
     private LocalDate creationDate;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     private User user;
 

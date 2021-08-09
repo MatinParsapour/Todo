@@ -26,7 +26,7 @@ public class ToDoMain {
                 if(choice == 1){
                     menu.signUp();
                 }else if(choice == 2){
-                    // menu.logIn
+                    menu.logIn();
                 }else if(choice == 3){
                     break;
                 }
