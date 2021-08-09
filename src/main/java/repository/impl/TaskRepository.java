@@ -1,7 +1,8 @@
-package repository;
+package repository.impl;
 
 import entity.Tasks;
 import entity.User;
+import repository.BaseRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,7 +10,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskRepository {
+public class TaskRepository implements BaseRepository<Tasks> {
 
     private final EntityManagerFactory entityManagerFactory;
 
@@ -17,12 +18,13 @@ public class TaskRepository {
         this.entityManagerFactory = entityManagerFactory;
     }
 
-    public List<Tasks> findAllActivities(){
+    @Override
+    public List<Tasks> findAll() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         return entityManager.createQuery("FROM Tasks",Tasks.class).getResultList();
     }
     public entity.Tasks findActivity(String activityField){
-        List<Tasks> tasks = findAllActivities();
+        List<Tasks> tasks = findAll();
         Tasks tasks1 = new Tasks();
         for (Tasks task : tasks) {
             if (task.getTitle().equals(activityField) || task.getBody().equals(activityField)) {
@@ -38,7 +40,7 @@ public class TaskRepository {
         entityManager.getTransaction().commit();
     }
     public List<Tasks> findUserActivities(User user){
-        List<Tasks> allTasks = findAllActivities();
+        List<Tasks> allTasks = findAll();
         List<Tasks> userTasks = new ArrayList<>();
         for (Tasks allTask : allTasks) {
             if (allTask.getUser().getUsername().equals(user.getUsername())) {
@@ -48,7 +50,7 @@ public class TaskRepository {
         return userTasks;
     }
     public boolean isIdCorrect(String title, User user){
-        List<Tasks> tasks = findAllActivities();
+        List<Tasks> tasks = findAll();
         for (Tasks task : tasks) {
             if (task.getTitle().equals(title) && task.getUser().getUsername().equals(user.getUsername())) {
                 return true;
@@ -124,4 +126,5 @@ public class TaskRepository {
         entityManager.merge(tasks1);
         entityManager.getTransaction().commit();
     }
+
 }

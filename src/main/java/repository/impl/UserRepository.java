@@ -1,12 +1,13 @@
-package repository;
+package repository.impl;
 
 import entity.User;
+import repository.BaseRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
-public class UserRepository {
+public class UserRepository implements BaseRepository<User> {
 
     private final EntityManagerFactory entityManagerFactory;
 
@@ -14,10 +15,10 @@ public class UserRepository {
         this.entityManagerFactory = entityManagerFactory;
     }
 
+    @Override
     public List<User> findAll(){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<User> users = entityManager.createQuery("FROM User",User.class).getResultList();
-        return users;
+        return entityManager.createQuery("FROM User",User.class).getResultList();
     }
     public entity.User findUser(String username){
         List<User>  users = findAll();

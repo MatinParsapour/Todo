@@ -2,7 +2,7 @@ package service;
 
 import entity.Tasks;
 import entity.User;
-import repository.TaskRepository;
+import repository.impl.TaskRepository;
 
 
 import java.time.LocalDate;
@@ -26,7 +26,6 @@ public class TaskService {
         Tasks task = new Tasks(title, body, creationDate, user);
         taskRepository.addActivity(task);
     }
-
     private String title() {
         String title;
         while (true) {
@@ -49,7 +48,6 @@ public class TaskService {
         }
         return title;
     }
-
     private String body() {
         String body;
         while (true) {
@@ -72,7 +70,6 @@ public class TaskService {
         }
         return body;
     }
-
     public void changeStatus(User user) {
         while (true) {
             try {
@@ -144,7 +141,6 @@ public class TaskService {
             }
         }
     }
-
     public void seeActivities(User user){
         while(true){
             try{
@@ -174,7 +170,6 @@ public class TaskService {
             }
         }
     }
-
     public void changeTitle(User user){
         while(true)
             try{

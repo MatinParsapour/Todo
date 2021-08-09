@@ -1,8 +1,8 @@
 package service;
 
 import entity.User;
-import repository.TaskRepository;
-import repository.UserRepository;
+import repository.impl.TaskRepository;
+import repository.impl.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

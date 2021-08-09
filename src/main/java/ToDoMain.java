@@ -1,5 +1,5 @@
-import repository.TaskRepository;
-import repository.UserRepository;
+import repository.impl.TaskRepository;
+import repository.impl.UserRepository;
 import service.UserService;
 import util.HibernateUtil;
 
