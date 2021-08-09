@@ -79,7 +79,8 @@ public class UserService {
                         System.out.println("         3.change the status         ");
                         System.out.println("         4.change password           ");
                         System.out.println("         5.change username           ");
-                        System.out.println("         6.back to main menu         ");
+                        System.out.println("       6.change activity title       ");
+                        System.out.println("         7.back to main menu         ");
                         System.out.println("<><><><><><><><><><><><><><><><><><>");
                         int choice = new Scanner(System.in).nextInt();
                         if(choice == 1){
@@ -93,6 +94,8 @@ public class UserService {
                         }else if(choice == 5){
                             changeUsername(userRepository.findUser(username));
                         }else if(choice == 6){
+                            taskService.changeTitle(userRepository.findUser(username));
+                        }else if(choice == 7){
                             exit = true;
                             break;
                         }else{

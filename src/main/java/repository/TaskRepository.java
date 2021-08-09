@@ -22,6 +22,16 @@ public class TaskRepository {
         List<Tasks> tasks = entityManager.createQuery("FROM Tasks",Tasks.class).getResultList();
         return tasks;
     }
+    public entity.Tasks findActivity(String activityField){
+        List<Tasks> tasks = findAllActivities();
+        Tasks tasks1 = new Tasks();
+        for(int counter = 0 ; counter < tasks.size() ; counter++){
+            if(tasks.get(counter).getTitle().equals(activityField) || tasks.get(counter).getBody().equals(activityField)){
+                tasks1 = tasks.get(counter);
+            }
+        }
+        return tasks1;
+    }
     public void addActivity(Tasks tasks){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
@@ -98,5 +108,13 @@ public class TaskRepository {
             + " date : " + tasks.get(counter).getCreationDate()
             + " status : " + tasks.get(counter).getStatus());
         }
+    }
+    public void updateTitle(Tasks tasks,String title){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Tasks tasks1 = entityManager.find(Tasks.class,tasks.getId());
+        entityManager.getTransaction().begin();
+        tasks1.setTitle(title);
+        entityManager.merge(tasks1);
+        entityManager.getTransaction().commit();
     }
 }
