@@ -196,16 +196,50 @@ public class TaskService {
                         int invalidTitle = new Scanner(System.in).nextInt();
                         if(invalidTitle == 1){
                             System.out.println("Start over");
-                        }else if(invalidTitle == 2){
+                        }else {
                             break;
-                        }else{
-                            System.out.println("You should choose 1 or 2");
-                            System.out.println("Start over");
                         }
                     }else{
                         System.out.println("enter new title : ");
                         String updateTitle = new Scanner(System.in).next();
                         taskRepository.updateTitle(taskRepository.findActivity(title),updateTitle);
+                    }
+                }else{
+                    break;
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Start over");
+            }
+    }
+    public void changeContent(User user){
+        List<Tasks> activities = taskRepository.findUserActivities(user);
+        for(int counter = 0 ; counter < activities.size(); counter++){
+            System.out.println("Title : " + activities.get(counter).getTitle() +
+                    " Content : " + activities.get(counter).getBody());
+        }
+        while(true)
+            try{
+                System.out.println("Do you want to change title?");
+                System.out.println("1.Yes                   2.No");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 1){
+                    System.out.println("enter the title of activity you want to change content : ");
+                    String title = new Scanner(System.in).next();
+                    boolean canChangeTitle = taskRepository.isIdCorrect(title,user);
+                    if(!canChangeTitle){
+                        System.out.println("This title isn't one of your activities");
+                        System.out.println("1.Try again              2.Back to menu");
+                        int invalidTitle = new Scanner(System.in).nextInt();
+                        if(invalidTitle == 1){
+                            System.out.println("Start over");
+                        }else {
+                            break;
+                        }
+                    }else{
+                        System.out.println("enter content : ");
+                        String newContent = new Scanner(System.in).next();
+                        taskRepository.updateContent(taskRepository.findActivity(title),newContent);
                     }
                 }else{
                     break;

@@ -117,4 +117,12 @@ public class TaskRepository {
         entityManager.merge(tasks1);
         entityManager.getTransaction().commit();
     }
+    public void updateContent(Tasks tasks, String content){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Tasks tasks1 = entityManager.find(Tasks.class,tasks.getId());
+        entityManager.getTransaction().begin();
+        tasks1.setBody(content);
+        entityManager.merge(tasks1);
+        entityManager.getTransaction().commit();
+    }
 }
