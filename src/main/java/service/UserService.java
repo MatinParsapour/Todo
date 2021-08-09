@@ -87,7 +87,7 @@ public class UserService {
                         }else if(choice == 2){
                             taskService.addActivity(userRepository.findUser(username));
                         }else if(choice == 3){
-                            System.out.println("Now you can change status of an activity");
+                            taskService.changeStatus(userRepository.findUser(username));
                         }else if(choice == 4){
                             exit = true;
                             break;
