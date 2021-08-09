@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserRepository {
 
-    private EntityManagerFactory entityManagerFactory;
+    private final EntityManagerFactory entityManagerFactory;
 
     public UserRepository(EntityManagerFactory entityManagerFactory){
         this.entityManagerFactory = entityManagerFactory;
@@ -22,9 +22,9 @@ public class UserRepository {
     public entity.User findUser(String username){
         List<User>  users = findAll();
         User user = new User();
-        for(int counter = 0 ; counter< users.size() ; counter++){
-            if(users.get(counter).getUsername().equals(username)){
-                user = users.get(counter);
+        for (User value : users) {
+            if (value.getUsername().equals(username)) {
+                user = value;
             }
         }
         return user;

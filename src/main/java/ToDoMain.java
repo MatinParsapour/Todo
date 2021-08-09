@@ -1,10 +1,8 @@
 import repository.TaskRepository;
 import repository.UserRepository;
-import service.TaskService;
 import service.UserService;
 import util.HibernateUtil;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.InputMismatchException;
 import java.util.Scanner;

@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class TaskService {
 
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
@@ -77,10 +77,10 @@ public class TaskService {
         while (true) {
             try {
                 List<Tasks> tasks = taskRepository.findUserActivities(user);
-                for (int counter = 0; counter < tasks.size(); counter++) {
-                    System.out.println("Title : " + tasks.get(counter).getTitle()
-                            + " Content : " + tasks.get(counter).getBody()
-                            + " Status : " + tasks.get(counter).getStatus());
+                for (Tasks task : tasks) {
+                    System.out.println("Title : " + task.getTitle()
+                            + " Content : " + task.getBody()
+                            + " Status : " + task.getStatus());
                 }
                 System.out.println("Do you want to change status of a task?");
                 System.out.println("1.Yes                              2.No");
@@ -102,9 +102,9 @@ public class TaskService {
                             System.out.println("try again");
                         }
                     } else {
-                        for (int findTask = 0; findTask < tasks.size(); findTask++) {
-                            if (tasks.get(findTask).getTitle().equals(taskTitle) && tasks.get(findTask).getStatus().equals("open")) {
-                                int id = tasks.get(findTask).getId();
+                        for (Tasks task : tasks) {
+                            if (task.getTitle().equals(taskTitle) && task.getStatus().equals("open")) {
+                                int id = task.getId();
                                 while (true) {
                                     System.out.println("1.completed            2.in progress");
                                     int status = new Scanner(System.in).nextInt();
@@ -117,8 +117,8 @@ public class TaskService {
                                     }
                                 }
                                 break;
-                            } else if (tasks.get(findTask).getTitle().equals(taskTitle) && tasks.get(findTask).getStatus().equals("in progress")) {
-                                int id = tasks.get(findTask).getId();
+                            } else if (task.getTitle().equals(taskTitle) && task.getStatus().equals("in progress")) {
+                                int id = task.getId();
                                 System.out.println("Is this task completed?");
                                 System.out.println("1.Yes              2.NO");
                                 int status = new Scanner(System.in).nextInt();
@@ -179,9 +179,9 @@ public class TaskService {
         while(true)
             try{
                 List<Tasks> activities = taskRepository.findUserActivities(user);
-                for(int counter = 0 ; counter < activities.size(); counter++){
-                    System.out.println("Title : " + activities.get(counter).getTitle() +
-                            " Content : " + activities.get(counter).getBody());
+                for (Tasks activity : activities) {
+                    System.out.println("Title : " + activity.getTitle() +
+                            " Content : " + activity.getBody());
                 }
                 System.out.println("Do you want to change title?");
                 System.out.println("1.Yes                   2.No");
@@ -216,9 +216,9 @@ public class TaskService {
         while(true)
             try{
                 List<Tasks> activities = taskRepository.findUserActivities(user);
-                for(int counter = 0 ; counter < activities.size(); counter++){
-                    System.out.println("Title : " + activities.get(counter).getTitle() +
-                            " Content : " + activities.get(counter).getBody());
+                for (Tasks activity : activities) {
+                    System.out.println("Title : " + activity.getTitle() +
+                            " Content : " + activity.getBody());
                 }
                 System.out.println("Do you want to change title?");
                 System.out.println("1.Yes                   2.No");
