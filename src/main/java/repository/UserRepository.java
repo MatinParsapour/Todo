@@ -29,4 +29,12 @@ public class UserRepository {
         }
         return user;
     }
+    public void updatePassword(String password, User user){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        User user1 = entityManager.find(User.class,user.getId());
+        user1.setPassword(password);
+        entityManager.merge(user1);
+        entityManager.getTransaction().commit();
+    }
 }

@@ -1,13 +1,11 @@
 package service;
 
-import entity.Tasks;
 import entity.User;
 import repository.TaskRepository;
 import repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -79,8 +77,9 @@ public class UserService {
                         System.out.println("        1.See your activities        ");
                         System.out.println("          2.add an activity          ");
                         System.out.println("         3.change the status         ");
-                        System.out.println("         4.back to main menu         ");
-                        System.out.println("<><><><><><><><><><><><><><><><><><><>");
+                        System.out.println("         4.change password           ");
+                        System.out.println("         5.back to main menu         ");
+                        System.out.println("<><><><><><><><><><><><><><><><><><>");
                         int choice = new Scanner(System.in).nextInt();
                         if(choice == 1){
                             taskService.seeActivities(userRepository.findUser(username));
@@ -89,6 +88,8 @@ public class UserService {
                         }else if(choice == 3){
                             taskService.changeStatus(userRepository.findUser(username));
                         }else if(choice == 4){
+                            chagnePassword(userRepository.findUser(username));
+                        }else if(choice == 5){
                             exit = true;
                             break;
                         }else{
@@ -171,5 +172,25 @@ public class UserService {
             }
         }
         return false;
+    }
+    private void chagnePassword(User user){
+        System.out.println("Youe password : " + user.getPassword());
+        while(true){
+            try{
+                System.out.println("Do you want to change password");
+                System.out.println("1.Yes                     2.No");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 1){
+                    String password = password();
+                    userRepository.updatePassword(password,user);
+                }
+                else if(choice == 2){
+                    break;
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Start over");
+            }
+        }
     }
 }
