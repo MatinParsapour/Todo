@@ -34,6 +34,7 @@ public class ToDoMain {
                 }else if(choice == 2){
                     userService.logIn();
                 }else if(choice == 3){
+                    System.out.println("Hope to see you soon🧡🧡");
                     break;
                 }
             }catch (InputMismatchException exception){
