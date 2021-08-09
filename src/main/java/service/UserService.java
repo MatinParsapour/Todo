@@ -78,7 +78,8 @@ public class UserService {
                         System.out.println("          2.add an activity          ");
                         System.out.println("         3.change the status         ");
                         System.out.println("         4.change password           ");
-                        System.out.println("         5.back to main menu         ");
+                        System.out.println("         5.change username           ");
+                        System.out.println("         6.back to main menu         ");
                         System.out.println("<><><><><><><><><><><><><><><><><><>");
                         int choice = new Scanner(System.in).nextInt();
                         if(choice == 1){
@@ -90,6 +91,8 @@ public class UserService {
                         }else if(choice == 4){
                             chagnePassword(userRepository.findUser(username));
                         }else if(choice == 5){
+                            changeUsername(userRepository.findUser(username));
+                        }else if(choice == 6){
                             exit = true;
                             break;
                         }else{
@@ -183,6 +186,26 @@ public class UserService {
                 if(choice == 1){
                     String password = password();
                     userRepository.updatePassword(password,user);
+                }
+                else if(choice == 2){
+                    break;
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Start over");
+            }
+        }
+    }
+    private void changeUsername(User user){
+        System.out.println("Your username : " + user.getUsername());
+        while(true){
+            try{
+                System.out.println("Do you want to change username");
+                System.out.println("1.Yes                     2.No");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 1){
+                    String username = username();
+                    userRepository.updateUsername(username,user);
                 }
                 else if(choice == 2){
                     break;

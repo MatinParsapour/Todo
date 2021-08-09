@@ -36,5 +36,15 @@ public class UserRepository {
         user1.setPassword(password);
         entityManager.merge(user1);
         entityManager.getTransaction().commit();
+        System.out.println("Your password successfully changed");
+    }
+    public void updateUsername(String username, User user){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        User user1 = entityManager.find(User.class,user.getId());
+        user1.setUsername(username);
+        entityManager.merge(user1);
+        entityManager.getTransaction().commit();
+        System.out.println("Your username successfully changed");
     }
 }
