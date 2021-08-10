@@ -4,13 +4,14 @@ package linkedlist;
 public class CustomLinkedListMain<T> {
 
     private CustomNode start;
+    private CustomNode end;
     public int length;
 
     public boolean isEmpty() {
         return start == null;
     }
 
-    public void insertNode(T information) {
+    public void insertAtFirst(T information) {
         CustomNode recentNode = new CustomNode(information);
         if (start == null) {
             start = recentNode;
@@ -24,7 +25,28 @@ public class CustomLinkedListMain<T> {
         length++;
     }
 
-    public void deleteNode(int index) {
+    public void insertAtLast(T information){
+        if(end == null){
+            insertAtFirst(information);
+            return;
+        }
+        CustomNode<T> recentNode = new CustomNode<T>(information);
+        recentNode = end.getNextNode();
+        recentNode = end;
+
+    }
+
+    public void insertAtIndex(int index, T information){
+        CustomNode newNode = new CustomNode(information);
+        CustomNode lastNode = start;
+        for(int counter = 0 ; counter < index -1 ; counter++){
+            lastNode = lastNode.getNextNode();
+        }
+        newNode.setNextNode(lastNode.getNextNode());
+        lastNode.setNextNode(newNode);
+    }
+
+    public void deleteFromFirst(int index) {
         CustomNode customNode = start;
         if (index == 0) {
             start = start.getNextNode();
