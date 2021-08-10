@@ -17,10 +17,14 @@ public class CustomLinkedListMain<T> {
 
     public void insertAtFirst(T information) {
         CustomNode recentNode = new CustomNode(information);
-        recentNode.nextNode = start;
-        start = recentNode;
-        if(end == null){
-            end = recentNode;
+        if(start == null){
+            start = recentNode;
+        }else {
+            CustomNode currentNode = start;
+            while(currentNode.nextNode != null) {
+                currentNode= currentNode.nextNode;
+            }
+            currentNode.nextNode = recentNode;
         }
         length++;
     }
@@ -52,11 +56,13 @@ public class CustomLinkedListMain<T> {
         if (index == 0) {
             start = start.getNextNode();
         } else {
-            for (int counter = 0; counter < index - 1; counter++) {
-                customNode = customNode.getNextNode();
+            CustomNode currentNode = start;
+            for(int counter = 0; counter < index - 1; counter++) {
+                currentNode = currentNode.nextNode;
             }
-            customNode.getNextNode().setNextNode(customNode.getNextNode().getNextNode());
+            currentNode.nextNode = currentNode.nextNode.nextNode;
         }
+        customNode.getNextNode().setNextNode(customNode.getNextNode().getNextNode());
         length--;
     }
 
