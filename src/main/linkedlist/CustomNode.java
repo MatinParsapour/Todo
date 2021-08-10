@@ -4,7 +4,7 @@ public class CustomNode<T> {
     private T information;
     private CustomNode nextNode;
 
-    public CustomNode(T information){
+    public CustomNode(T information) {
         this.information = information;
     }
 

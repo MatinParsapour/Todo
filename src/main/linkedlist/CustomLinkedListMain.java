@@ -26,10 +26,9 @@ public class CustomLinkedListMain<T> {
 
     public void deleteNode(int index) {
         CustomNode customNode = start;
-        if(index == 0){
+        if (index == 0) {
             start = start.getNextNode();
-        }
-        else{
+        } else {
             for (int counter = 0; counter < index - 1; counter++) {
                 customNode = customNode.getNextNode();
             }
@@ -37,15 +36,16 @@ public class CustomLinkedListMain<T> {
         }
         length--;
     }
-    public int indexOf(T element){
+
+    public int indexOf(T element) {
         int index = -1;
         CustomNode currentNode = start;
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new IndexOutOfBoundsException("you have nothing here");
         }
         int temp = 0;
-        while(currentNode != null){
-            if(currentNode.getInformation() == element){
+        while (currentNode != null) {
+            if (currentNode.getInformation() == element) {
                 index = temp;
                 break;
             }
@@ -54,12 +54,13 @@ public class CustomLinkedListMain<T> {
         }
         return index;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         String toString = "(";
-        if(start != null){
+        if (start != null) {
             CustomNode currentNode = start;
-            while(currentNode != null){
+            while (currentNode != null) {
                 toString += "[";
                 toString += currentNode.getInformation() + "]";
                 currentNode = currentNode.getNextNode();
