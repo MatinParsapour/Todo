@@ -78,7 +78,7 @@ public class CustomLinkedListMain<T> {
         return index;
     }
 
-    public CustomNode get(int index){
+    public T get(int index){
         if(index > length){
             throw new IndexOutOfBoundsException("this index is out of bound");
         }
@@ -86,7 +86,7 @@ public class CustomLinkedListMain<T> {
         for(int counter = 0 ; counter < index ; counter++){
             newNode = newNode.nextNode;
         }
-        return newNode;
+        return (T) newNode.information;
     }
     @Override
     public String toString() {

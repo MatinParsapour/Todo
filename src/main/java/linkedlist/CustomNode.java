@@ -3,6 +3,15 @@ package linkedlist;
 public class CustomNode<T> {
      T information;
     CustomNode nextNode;
+    CustomNode previousNode;
+
+    public CustomNode getPreviousNode() {
+        return previousNode;
+    }
+
+    public void setPreviousNode(CustomNode previousNode) {
+        this.previousNode = previousNode;
+    }
 
     public CustomNode(T information) {
         this.information = information;
