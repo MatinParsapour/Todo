@@ -78,6 +78,16 @@ public class CustomLinkedListMain<T> {
         return index;
     }
 
+    public CustomNode get(int index){
+        if(index > length){
+            throw new IndexOutOfBoundsException("this index is out of bound");
+        }
+        CustomNode newNode = start;
+        for(int counter = 0 ; counter < index ; counter++){
+            newNode = newNode.nextNode;
+        }
+        return newNode;
+    }
     @Override
     public String toString() {
         String toString = "(";

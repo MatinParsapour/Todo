@@ -53,10 +53,10 @@ public class TaskRepository implements BaseRepository<Tasks> {
         return userTasks;
     }
 
-    public boolean isIdCorrect(String title, User user) {
+    public boolean isIdCorrect(String title, String username) {
         List<Tasks> tasks = findAll();
         for (Tasks task : tasks) {
-            if (task.getTitle().equals(title) && task.getUser().getUsername().equals(user.getUsername())) {
+            if (task.getTitle().equals(title) && task.getUser().getUsername().equals(username)) {
                 return true;
             }
         }

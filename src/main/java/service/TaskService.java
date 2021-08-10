@@ -88,7 +88,7 @@ public class TaskService {
                 if (choice == 1) {
                     System.out.println("Enter title of task");
                     String taskTitle = new Scanner(System.in).next();
-                    boolean isIdValid = taskRepository.isIdCorrect(taskTitle, user);
+                    boolean isIdValid = taskRepository.isIdCorrect(taskTitle, user.getUsername());
                     if (!isIdValid) {
                         System.out.println("The title you entered is not one of your tasks");
                         System.out.println("1.back to menu                  2.try again");
@@ -189,7 +189,7 @@ public class TaskService {
                 if (choice == 1) {
                     System.out.println("enter title : ");
                     String title = new Scanner(System.in).next();
-                    boolean canChangeTitle = taskRepository.isIdCorrect(title, user);
+                    boolean canChangeTitle = taskRepository.isIdCorrect(title, user.getUsername());
                     if (!canChangeTitle) {
                         System.out.println("This title isn't one of your activities");
                         System.out.println("1.Try again              2.Back to menu");
@@ -221,13 +221,13 @@ public class TaskService {
                     System.out.println("Title : " + activity.getTitle() +
                             " Content : " + activity.getBody());
                 }
-                System.out.println("Do you want to change title?");
+                System.out.println("Do you want to change content?");
                 System.out.println("1.Yes                   2.No");
                 int choice = new Scanner(System.in).nextInt();
                 if (choice == 1) {
                     System.out.println("enter the title of activity you want to change content : ");
                     String title = new Scanner(System.in).next();
-                    boolean canChangeTitle = taskRepository.isIdCorrect(title, user);
+                    boolean canChangeTitle = taskRepository.isIdCorrect(title, user.getUsername());
                     if (!canChangeTitle) {
                         System.out.println("This title isn't one of your activities");
                         System.out.println("1.Try again              2.Back to menu");

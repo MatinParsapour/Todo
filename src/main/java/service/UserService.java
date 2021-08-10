@@ -95,7 +95,7 @@ public class UserService {
                         } else if (choice == 4) {
                             changePassword(userRepository.findUser(username));
                         } else if (choice == 5) {
-                            changeUsername(userRepository.findUser(username));
+                            username = changeUsername(userRepository.findUser(username));
                         } else if (choice == 6) {
                             taskService.changeTitle(userRepository.findUser(username));
                         } else if (choice == 7) {
@@ -208,15 +208,16 @@ public class UserService {
         }
     }
 
-    private void changeUsername(User user) {
+    private String changeUsername(User user) {
         System.out.println("Your username : " + user.getUsername());
+        String username = null;
         while (true) {
             try {
                 System.out.println("Do you want to change username");
                 System.out.println("1.Yes                     2.No");
                 int choice = new Scanner(System.in).nextInt();
                 if (choice == 1) {
-                    String username = username();
+                    username = username();
                     userRepository.updateUsername(username, user);
                     break;
                 } else if (choice == 2) {
@@ -227,5 +228,6 @@ public class UserService {
                 System.out.println("Start over");
             }
         }
+        return username;
     }
 }
