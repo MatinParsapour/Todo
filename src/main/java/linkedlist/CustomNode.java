@@ -1,8 +1,8 @@
 package linkedlist;
 
 public class CustomNode<T> {
-    private T information;
-    private CustomNode nextNode;
+     T information;
+    CustomNode nextNode;
 
     public CustomNode(T information) {
         this.information = information;

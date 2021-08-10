@@ -31,8 +31,8 @@ public class CustomLinkedListMain<T> {
             return;
         }
         CustomNode<T> recentNode = new CustomNode<T>(information);
-        recentNode = end.getNextNode();
-        recentNode = end;
+        end.nextNode = recentNode;
+        end = recentNode;
 
     }
 
@@ -46,7 +46,7 @@ public class CustomLinkedListMain<T> {
         lastNode.setNextNode(newNode);
     }
 
-    public void deleteFromFirst(int index) {
+    public void delete(int index) {
         CustomNode customNode = start;
         if (index == 0) {
             start = start.getNextNode();
