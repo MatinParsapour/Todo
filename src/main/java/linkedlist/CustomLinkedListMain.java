@@ -5,7 +5,11 @@ public class CustomLinkedListMain<T> {
 
     private CustomNode start;
     private CustomNode end;
-    public int length;
+    private int length;
+
+    public int length(){
+        return length;
+    }
 
     public boolean isEmpty() {
         return start == null;
@@ -13,14 +17,10 @@ public class CustomLinkedListMain<T> {
 
     public void insertAtFirst(T information) {
         CustomNode recentNode = new CustomNode(information);
-        if (start == null) {
-            start = recentNode;
-        } else {
-            CustomNode actualNode = start;
-            while (actualNode.getNextNode() != null) {
-                actualNode = actualNode.getNextNode();
-            }
-            actualNode.setNextNode(recentNode);
+        recentNode.nextNode = start;
+        start = recentNode;
+        if(end == null){
+            end = recentNode;
         }
         length++;
     }
@@ -33,7 +33,7 @@ public class CustomLinkedListMain<T> {
         CustomNode<T> recentNode = new CustomNode<T>(information);
         end.nextNode = recentNode;
         end = recentNode;
-
+        length++;
     }
 
     public void insertAtIndex(int index, T information){
@@ -44,6 +44,7 @@ public class CustomLinkedListMain<T> {
         }
         newNode.setNextNode(lastNode.getNextNode());
         lastNode.setNextNode(newNode);
+        length++;
     }
 
     public void delete(int index) {
