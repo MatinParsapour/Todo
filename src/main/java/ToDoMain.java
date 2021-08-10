@@ -15,11 +15,11 @@ public class ToDoMain {
         TaskRepository taskRepository = new TaskRepository(entityManagerFactory);
 
 
-        UserService userService = new UserService(entityManagerFactory, userRepository,taskRepository);
+        UserService userService = new UserService(entityManagerFactory, userRepository, taskRepository);
 
         System.out.println("<><><> Welcome <><><>");
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.println("+-------------------+");
                 System.out.println("|      1.Sign up    |");
                 System.out.println("|      2.Log in     |");
@@ -27,15 +27,15 @@ public class ToDoMain {
                 System.out.println("+-------------------+");
                 System.out.print("Option : ");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     userService.signUp();
-                }else if(choice == 2){
+                } else if (choice == 2) {
                     userService.logIn();
-                }else if(choice == 3){
+                } else if (choice == 3) {
                     System.out.println("Hope to see you soon🧡🧡");
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("Invalid entry");
             }
         }

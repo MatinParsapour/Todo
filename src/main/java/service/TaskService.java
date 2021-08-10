@@ -26,6 +26,7 @@ public class TaskService {
         Tasks task = new Tasks(title, body, creationDate, user);
         taskRepository.addActivity(task);
     }
+
     private String title() {
         String title;
         while (true) {
@@ -48,6 +49,7 @@ public class TaskService {
         }
         return title;
     }
+
     private String body() {
         String body;
         while (true) {
@@ -70,6 +72,7 @@ public class TaskService {
         }
         return body;
     }
+
     public void changeStatus(User user) {
         while (true) {
             try {
@@ -141,9 +144,10 @@ public class TaskService {
             }
         }
     }
-    public void seeActivities(User user){
-        while(true){
-            try{
+
+    public void seeActivities(User user) {
+        while (true) {
+            try {
                 System.out.println("-----------------------------");
                 System.out.println("       1.Based on Date       ");
                 System.out.println("       2.based on Title      ");
@@ -151,28 +155,29 @@ public class TaskService {
                 System.out.println("            4.exit           ");
                 System.out.println("-----------------------------");
                 int baseOn = new Scanner(System.in).nextInt();
-                if(baseOn == 1 || baseOn == 2 || baseOn ==3){
+                if (baseOn == 1 || baseOn == 2 || baseOn == 3) {
                     System.out.println("--------------------");
                     System.out.println("    1.Ascending     ");
                     System.out.println("    2.Descending    ");
                     System.out.println("--------------------");
                     int display = new Scanner(System.in).nextInt();
-                    taskRepository.displayActivities(baseOn,display,user);
-                }else if(baseOn == 4){
+                    taskRepository.displayActivities(baseOn, display, user);
+                } else if (baseOn == 4) {
                     break;
-                }else{
+                } else {
                     System.out.println("You should choose between menu options");
                     System.out.println("try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Try again");
             }
         }
     }
-    public void changeTitle(User user){
-        while(true)
-            try{
+
+    public void changeTitle(User user) {
+        while (true)
+            try {
                 List<Tasks> activities = taskRepository.findUserActivities(user);
                 for (Tasks activity : activities) {
                     System.out.println("Title : " + activity.getTitle() +
@@ -181,35 +186,36 @@ public class TaskService {
                 System.out.println("Do you want to change title?");
                 System.out.println("1.Yes                   2.No");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     System.out.println("enter title : ");
                     String title = new Scanner(System.in).next();
-                    boolean canChangeTitle = taskRepository.isIdCorrect(title,user);
-                    if(!canChangeTitle){
+                    boolean canChangeTitle = taskRepository.isIdCorrect(title, user);
+                    if (!canChangeTitle) {
                         System.out.println("This title isn't one of your activities");
                         System.out.println("1.Try again              2.Back to menu");
                         int invalidTitle = new Scanner(System.in).nextInt();
-                        if(invalidTitle == 1){
+                        if (invalidTitle == 1) {
                             System.out.println("Start over");
-                        }else {
+                        } else {
                             break;
                         }
-                    }else{
+                    } else {
                         System.out.println("enter new title : ");
                         String updateTitle = new Scanner(System.in).next();
-                        taskRepository.updateTitle(taskRepository.findActivity(title),updateTitle);
+                        taskRepository.updateTitle(taskRepository.findActivity(title), updateTitle);
                     }
-                }else{
+                } else {
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
     }
-    public void changeContent(User user){
-        while(true)
-            try{
+
+    public void changeContent(User user) {
+        while (true)
+            try {
                 List<Tasks> activities = taskRepository.findUserActivities(user);
                 for (Tasks activity : activities) {
                     System.out.println("Title : " + activity.getTitle() +
@@ -218,28 +224,28 @@ public class TaskService {
                 System.out.println("Do you want to change title?");
                 System.out.println("1.Yes                   2.No");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     System.out.println("enter the title of activity you want to change content : ");
                     String title = new Scanner(System.in).next();
-                    boolean canChangeTitle = taskRepository.isIdCorrect(title,user);
-                    if(!canChangeTitle){
+                    boolean canChangeTitle = taskRepository.isIdCorrect(title, user);
+                    if (!canChangeTitle) {
                         System.out.println("This title isn't one of your activities");
                         System.out.println("1.Try again              2.Back to menu");
                         int invalidTitle = new Scanner(System.in).nextInt();
-                        if(invalidTitle == 1){
+                        if (invalidTitle == 1) {
                             System.out.println("Start over");
-                        }else {
+                        } else {
                             break;
                         }
-                    }else{
+                    } else {
                         System.out.println("enter content : ");
                         String newContent = new Scanner(System.in).nextLine();
-                        taskRepository.updateContent(taskRepository.findActivity(title),newContent);
+                        taskRepository.updateContent(taskRepository.findActivity(title), newContent);
                     }
-                }else{
+                } else {
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }

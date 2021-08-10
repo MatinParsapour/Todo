@@ -11,17 +11,18 @@ public class UserRepository implements BaseRepository<User> {
 
     private final EntityManagerFactory entityManagerFactory;
 
-    public UserRepository(EntityManagerFactory entityManagerFactory){
+    public UserRepository(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
     @Override
-    public List<User> findAll(){
+    public List<User> findAll() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.createQuery("FROM User",User.class).getResultList();
+        return entityManager.createQuery("FROM User", User.class).getResultList();
     }
-    public entity.User findUser(String username){
-        List<User>  users = findAll();
+
+    public entity.User findUser(String username) {
+        List<User> users = findAll();
         User user = new User();
         for (User value : users) {
             if (value.getUsername().equals(username)) {
@@ -30,19 +31,21 @@ public class UserRepository implements BaseRepository<User> {
         }
         return user;
     }
-    public void updatePassword(String password, User user){
+
+    public void updatePassword(String password, User user) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        User user1 = entityManager.find(User.class,user.getId());
+        User user1 = entityManager.find(User.class, user.getId());
         user1.setPassword(password);
         entityManager.merge(user1);
         entityManager.getTransaction().commit();
         System.out.println("Your password successfully changed");
     }
-    public void updateUsername(String username, User user){
+
+    public void updateUsername(String username, User user) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        User user1 = entityManager.find(User.class,user.getId());
+        User user1 = entityManager.find(User.class, user.getId());
         user1.setUsername(username);
         entityManager.merge(user1);
         entityManager.getTransaction().commit();

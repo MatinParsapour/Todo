@@ -11,7 +11,7 @@ public class HibernateUtil {
         entityManagerFactory = Persistence.createEntityManagerFactory("matin");
     }
 
-    public static EntityManagerFactory getEntityManagerFactory(){
+    public static EntityManagerFactory getEntityManagerFactory() {
         return entityManagerFactory;
     }
 }

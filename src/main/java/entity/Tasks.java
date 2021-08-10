@@ -24,10 +24,10 @@ public class Tasks {
     @ManyToOne
     private User user;
 
-    public Tasks(){
+    public Tasks() {
     }
 
-    public Tasks(String title, String body, LocalDate creationDate, User user){
+    public Tasks(String title, String body, LocalDate creationDate, User user) {
         this.title = title;
         this.body = body;
         this.creationDate = creationDate;
