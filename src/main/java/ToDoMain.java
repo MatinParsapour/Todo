@@ -12,11 +12,7 @@ public class ToDoMain {
         System.out.println("🧡🧡🧡 Welcome 🧡🧡🧡");
         while(true){
             try{
-                System.out.println("-----------------------");
-                System.out.println("       1.Sign Up       ");
-                System.out.println("        2.Log In       ");
-                System.out.println("         3.Exit        ");
-                System.out.println("-----------------------");
+                ApplicationContext.getDemonstration().mainMenu();
                 int choice = new Scanner(System.in).nextInt();
                 if(choice == 1){
                     userServiceImpl.logIn();

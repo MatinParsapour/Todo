@@ -12,6 +12,8 @@ public class ApplicationContext {
 
     private static final UserServiceImpl userServiceImpl;
 
+    private static final Demonstration demonstration;
+
     private ApplicationContext(){
     }
 
@@ -19,8 +21,11 @@ public class ApplicationContext {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
         userRepository = new UserRepositoryImpl(entityManager);
         userServiceImpl = new UserServiceImpl(userRepository);
+        demonstration = new Demonstration();
     }
     public static UserServiceImpl getUserServiceImpl(){
         return userServiceImpl;
     }
+
+    public static Demonstration getDemonstration(){return demonstration;}
 }
