@@ -5,6 +5,7 @@ import base.service.BaseEntityServiceImpl;
 import domain.User;
 import repository.UserRepository;
 import service.UserService;
+import util.ApplicationContext;
 
 import java.util.Scanner;
 
@@ -22,8 +23,9 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
             String username = input.next();
             System.out.print("password : ");
             String password = input.next();
-            if(repository.checkUser(username,password)){
+            if(ApplicationContext.getUserServiceImpl().repository.checkUser(username,password)){
                 System.out.println("<><><> You logged in <><><>");
+                ApplicationContext.getDemonstration().choicesMenu();
             }else{
                 System.out.println("Your username or password is incorrect");
                 System.out.println("1.Back to main menu        2.Try again");
