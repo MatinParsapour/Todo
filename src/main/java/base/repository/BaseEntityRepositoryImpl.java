@@ -45,7 +45,7 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID exten
 
     @Override
     public boolean exists(ID id) {
-        return entityManagaer.createQuery("FROM" + getEntity().getSimpleName() +
+        return entityManagaer.createQuery("FROM " + getEntity().getSimpleName() +
                 " WHERE id = :id " ,Long.class).setParameter("id",id).getSingleResult() == 1;
 
     }

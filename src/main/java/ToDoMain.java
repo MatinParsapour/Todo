@@ -1,8 +1,14 @@
+import repository.UserRepository;
+import service.UserService;
+import service.impl.UserServiceImpl;
+import util.ApplicationContext;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ToDoMain {
     public static void main(String[] args) {
+        UserServiceImpl userServiceImpl = ApplicationContext.getUserServiceImpl();
         System.out.println("🧡🧡🧡 Welcome 🧡🧡🧡");
         while(true){
             try{
@@ -13,7 +19,7 @@ public class ToDoMain {
                 System.out.println("-----------------------");
                 int choice = new Scanner(System.in).nextInt();
                 if(choice == 1){
-                    //signup
+                    userServiceImpl.logIn();
                 }else if(choice == 2){
                     //logIn
                 }else if(choice == 3){
