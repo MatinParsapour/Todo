@@ -19,11 +19,14 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID exten
 
     @Override
     public E saveOrUpdate(E e) {
+        entityManagaer.getTransaction().begin();
         if(e.getId() == null){
             entityManagaer.persist(e);
+            entityManagaer.getTransaction().commit();
             return e;
         }else{
             entityManagaer.persist(e);
+            entityManagaer.getTransaction().commit();
             return e;
         }
     }
@@ -35,7 +38,7 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID exten
 
     @Override
     public List<E> findAll() {
-        return entityManagaer.createQuery("FROM" + getEntity().getSimpleName(),getEntity()).getResultList();
+        return entityManagaer.createQuery("FROM " + getEntity().getSimpleName(),getEntity()).getResultList();
     }
 
     @Override

@@ -7,6 +7,7 @@ import repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import java.util.List;
 
 public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User,Long> implements UserRepository {
     public UserRepositoryImpl(EntityManager entityManager) {
@@ -20,13 +21,24 @@ public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User,Long> impl
 
     @Override
     public boolean checkUser(String username, String password) {
-        try{
-            return (boolean) entityManagaer.createQuery("FROM " + getEntity().getSimpleName() +
-                    " WHERE username = :username " +
-                    "and password = :password")
-                    .setParameter("username",username).setParameter("password",password).getSingleResult();
-        }catch (NoResultException exception){
-            return false;
+        List<User> users = findAll();
+         for (User user : users) {
+            if(user.getUsername().equals(username)
+                    && user.getPassword().equals(password)){
+                return true;
+            }
         }
+         return false;
+    }
+
+    @Override
+    public boolean exists(String username) {
+        List<User> users = findAll();
+        for(User user : users){
+            if(user.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
     }
 }
