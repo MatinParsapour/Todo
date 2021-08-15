@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "task")
@@ -24,7 +25,7 @@ public class Task extends BaseEntity<Long> {
 
     public Task(){}
 
-    public Task(String title, String content, LocalDateTime creationDate){
+    public Task(String title, String content, Date creationDate){
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
@@ -46,11 +47,11 @@ public class Task extends BaseEntity<Long> {
         this.content = content;
     }
 
-    public LocalDateTime getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
