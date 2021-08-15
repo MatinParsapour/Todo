@@ -24,10 +24,11 @@ public class Task extends BaseEntity<Long> {
 
     public Task(){}
 
-    public Task(String title, String content, Date creationDate){
+    public Task(String title, String content, Date creationDate, User user){
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
+        this.user = user;
     }
 
     public String getTitle() {

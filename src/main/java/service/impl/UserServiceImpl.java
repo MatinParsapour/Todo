@@ -39,7 +39,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                         if (choice == 1) {
                             //see your activities
                         } else if (choice == 2) {
-                            //add an activity
+                            ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
                         } else if (choice == 3) {
                             //change status
                         } else if (choice == 4) {
