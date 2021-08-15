@@ -8,6 +8,7 @@ import util.ApplicationContext;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -214,7 +215,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                             System.out.println("!!! Your email changed !!!");
                             break;
                         case 6:
-                            String phoneNumber = phoneNumber();
+                            String phoneNumber = phoneNumber(user.getPhoneNumber());
                             user.setPhoneNumber(phoneNumber);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your phone number changed !!!");
@@ -224,7 +225,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                     System.out.println("You should choose 1 or 2");
                     System.out.println("Try again");
                 }
-            } catch (InputMismatchException exception) {
+            } catch (InputMismatchException | InterruptedException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Try again");
             }
@@ -296,7 +297,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return email;
     }
 
-    private String phoneNumber() {
+    private String phoneNumber(String number) throws InterruptedException {
+        Random random = new Random();
         Pattern validPhoneNumber = Pattern.compile("[0][9][0-9]{9}");
         System.out.println("Enter your full phone number");
         String phoneNumber = new Scanner(System.in).next();
@@ -307,8 +309,28 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             phoneNumber = new Scanner(System.in).next();
             matchPhoneNumber = validPhoneNumber.matcher(phoneNumber);
         }
-        return phoneNumber;
+        while(true){
+            int validationCode = random.nextInt(1000000);
+            System.out.println("Please wait, we are sending a validation code to " + phoneNumber);
+            for(int waiting = 0 ; waiting <= 10 ; waiting++){
+                Thread.sleep(1000);
+                System.out.print("" + "🟩");
+            }
+            System.out.println();
+            System.out.println("This is your validation code : " + validationCode);
+            System.out.print("Write your validation code : ");
+            int validate = new Scanner(System.in).nextInt();
+            if(validate == validationCode){
+                System.out.println("Your phone is valid");
+                return phoneNumber;
+            }else{
+                System.out.println("Invalid code");
+                System.out.println("1.Send another code       2.back to main menu");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 2){
+                    return number;
+                }
+            }
+        }
     }
-
-
 }
