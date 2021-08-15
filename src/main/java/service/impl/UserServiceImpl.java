@@ -1,6 +1,5 @@
 package service.impl;
 
-import base.repository.BaseEntityRepository;
 import base.service.BaseEntityServiceImpl;
 import domain.User;
 import repository.UserRepository;

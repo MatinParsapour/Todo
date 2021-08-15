@@ -2,7 +2,6 @@ package util;
 
 import repository.UserRepository;
 import repository.impl.UserRepositoryImpl;
-import service.UserService;
 import service.impl.UserServiceImpl;
 
 import javax.persistence.EntityManager;

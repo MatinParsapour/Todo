@@ -3,7 +3,6 @@ package base.repository;
 import base.entity.BaseEntity;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import java.util.List;
 

@@ -1,5 +1,3 @@
-import repository.UserRepository;
-import service.UserService;
 import service.impl.UserServiceImpl;
 import util.ApplicationContext;
 

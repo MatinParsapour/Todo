@@ -2,7 +2,6 @@ package base.repository;
 
 import base.entity.BaseEntity;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;

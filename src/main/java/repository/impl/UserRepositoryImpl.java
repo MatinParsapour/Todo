@@ -1,12 +1,10 @@
 package repository.impl;
 
 import base.repository.BaseEntityRepositoryImpl;
-import base.service.BaseEntityServiceImpl;
 import domain.User;
 import repository.UserRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import java.util.List;
 
 public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User,Long> implements UserRepository {

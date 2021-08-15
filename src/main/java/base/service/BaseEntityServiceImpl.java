@@ -2,6 +2,7 @@ package base.service;
 
 import base.entity.BaseEntity;
 import base.repository.BaseEntityRepository;
+
 import java.io.Serializable;
 import java.util.List;
 
