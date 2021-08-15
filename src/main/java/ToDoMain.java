@@ -15,9 +15,9 @@ public class ToDoMain {
                 ApplicationContext.getDemonstration().mainMenu();
                 int choice = new Scanner(System.in).nextInt();
                 if(choice == 1){
-                    userServiceImpl.logIn();
+                    //signUp
                 }else if(choice == 2){
-                    //logIn
+                    userServiceImpl.logIn();
                 }else if(choice == 3){
                     break;
                 }else{
