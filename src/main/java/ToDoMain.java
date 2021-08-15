@@ -6,16 +6,15 @@ import java.util.Scanner;
 
 public class ToDoMain {
     public static void main(String[] args) {
-        UserServiceImpl userServiceImpl = ApplicationContext.getUserServiceImpl();
         System.out.println("🧡🧡🧡 Welcome 🧡🧡🧡");
         while(true){
             try{
                 ApplicationContext.getDemonstration().mainMenu();
                 int choice = new Scanner(System.in).nextInt();
                 if(choice == 1){
-                    userServiceImpl.signUp();
+                    ApplicationContext.getUserServiceImpl().signUp();
                 }else if(choice == 2){
-                    userServiceImpl.logIn();
+                    ApplicationContext.getUserServiceImpl().logIn();
                 }else if(choice == 3){
                     break;
                 }else{
