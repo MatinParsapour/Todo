@@ -15,6 +15,7 @@ public class ToDoMain {
                 } else if (choice == 2) {
                     ApplicationContext.getUserServiceImpl().logIn();
                 } else if (choice == 3) {
+                    System.out.println("Hope to see you again");
                     break;
                 } else {
                     System.out.println("You should choose between menu options");

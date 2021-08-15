@@ -36,7 +36,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                         ApplicationContext.getDemonstration().choicesMenu();
                         int choice = new Scanner(System.in).nextInt();
                         if (choice == 1) {
-                            //see your activities
+                            ApplicationContext.getTaskServiceImpl().seeActivities(findById(userId));
                         } else if (choice == 2) {
                             ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
                         } else if (choice == 3) {

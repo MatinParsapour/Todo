@@ -53,4 +53,35 @@ public class TaskRepositoryImpl extends BaseEntityRepositoryImpl<Task, Long> imp
         }
         return userTask;
     }
+
+    @Override
+    public List<Task> sortActivities(int field, int how, User user) {
+        List<Task> tasks = new ArrayList<>();
+        if(how == 1){
+            if(field == 1){
+                tasks = entityManagaer.createQuery("FROM Task t WHERE t.user = :user " +
+                        "ORDER BY t.status DESC ").setParameter("user",user).getResultList();
+            }else if(field == 2){
+                tasks = entityManagaer.createQuery("FROM Task t WHERE t.user = :user " +
+                        "ORDER BY t.title DESC ").setParameter("user",user).getResultList();
+
+            }else{
+                tasks = entityManagaer.createQuery("FROM Task t WHERE t.user = :user " +
+                        "ORDER BY t.creationDate DESC ").setParameter("user",user).getResultList();
+            }
+        }else if(how == 2){
+            if(field == 1){
+                tasks = entityManagaer.createQuery("FROM Task t WHERE t.user = :user " +
+                        "ORDER BY t.status ASC ").setParameter("user",user).getResultList();
+            }else if(field == 2){
+                tasks = entityManagaer.createQuery("FROM Task t WHERE t.user = :user " +
+                        "ORDER BY t.title ASC ").setParameter("user",user).getResultList();
+
+            }else{
+                tasks = entityManagaer.createQuery("FROM Task t WHERE t.user = :user " +
+                        "ORDER BY t.creationDate ASC ").setParameter("user",user).getResultList();
+            }
+        }
+        return tasks;
+    }
 }

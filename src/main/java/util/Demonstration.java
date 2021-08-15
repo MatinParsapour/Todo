@@ -20,4 +20,20 @@ public class Demonstration {
         System.out.println("|    7.back to main menu    |");
         System.out.println("+---------------------------+");
     }
+
+    public void seeActivitiesMenu(){
+        System.out.println("+-----------------------+");
+        System.out.println("|    1.Based on Status  |");
+        System.out.println("|    2.Based on title   |");
+        System.out.println("|    3.Based on Date    |");
+        System.out.println("|    4.Back to menu     |");
+        System.out.println("+-----------------------+");
+    }
+
+    public void howSeeActivities(){
+        System.out.println("+---------------------+");
+        System.out.println("|     1.Descending    |");
+        System.out.println("|     2.Ascending     |");
+        System.out.println("+---------------------+");
+    }
 }
