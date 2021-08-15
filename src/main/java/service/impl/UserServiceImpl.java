@@ -209,7 +209,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                             System.out.println("!!! Your birth Date changed !!!");
                             break;
                         case 5:
-                            String email = email();
+                            String email = email(user.getEmail());
                             user.setEmail(email);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your email changed !!!");
@@ -283,7 +283,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return date;
     }
 
-    private String email() {
+    private String email(String previousEmail) throws InterruptedException {
+        Random random = new Random();
         Pattern validEmail = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[\\a-zA-Z]{2,6}");
         System.out.print("Email : ");
         String email = new Scanner(System.in).next();
@@ -294,7 +295,34 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             email = new Scanner(System.in).next();
             machEmail = validEmail.matcher(email);
         }
-        return email;
+        while(true){
+            int validationCode = random.nextInt(1000000);
+            System.out.println("Please wait, we are sending a validation code to " + email);
+            for(int waiting = 0 ; waiting <= 10 ; waiting++){
+                Thread.sleep(1000);
+                System.out.print("" + "🟩");
+            }
+            System.out.println();
+            System.out.println("This is your validation code : " + validationCode);
+            System.out.print("Write your validation code : ");
+            int validate = new Scanner(System.in).nextInt();
+            if(validate == validationCode){
+                System.out.print("Please wait, we are syncing data");
+                for(int delay = 0 ; delay <= 10 ; delay++){
+                    Thread.sleep(1000);
+                    System.out.print(" .");
+                }
+                System.out.println("\nYour email is valid");
+                return email;
+            }else{
+                System.out.println("Invalid code");
+                System.out.println("1.Send another code       2.back to main menu");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 2){
+                    return previousEmail;
+                }
+            }
+        }
     }
 
     private String phoneNumber(String number) throws InterruptedException {
@@ -316,8 +344,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 Thread.sleep(1000);
                 System.out.print("" + "🟩");
             }
-            System.out.println();
-            System.out.println("This is your validation code : " + validationCode);
+            System.out.println("\nThis is your validation code : " + validationCode);
             System.out.print("Write your validation code : ");
             int validate = new Scanner(System.in).nextInt();
             if(validate == validationCode){
