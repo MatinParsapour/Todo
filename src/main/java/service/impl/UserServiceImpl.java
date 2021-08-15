@@ -6,6 +6,8 @@ import repository.UserRepository;
 import service.UserService;
 import util.ApplicationContext;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -19,6 +21,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
 
     @Override
     public void logIn(){
+        System.out.println("<><><> Log in <><><>");
         boolean exit = false;
         while(!exit){
             try{
@@ -27,26 +30,25 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                 String username = input.next();
                 System.out.print("password : ");
                 String password = input.next();
-                if(ApplicationContext.getUserServiceImpl().repository.checkUser(username,password)){
+                if(repository.checkUser(username,password)){
+                    Long userId = repository.findId(username);
                     System.out.println("<><><> You logged in <><><>");
-                    while(true){
+                    while(true) {
                         ApplicationContext.getDemonstration().choicesMenu();
                         int choice = new Scanner(System.in).nextInt();
-                        if(choice == 1){
+                        if (choice == 1) {
                             //see your activities
-                        }else if (choice == 2){
+                        } else if (choice == 2) {
                             //add an activity
-                        }else if (choice == 3){
+                        } else if (choice == 3) {
                             //change status
-                        }else if(choice == 4){
-                            //change password
-                        }else if(choice == 5){
-                            //change username
-                        }else if(choice == 6){
+                        } else if (choice == 4) {
+                            profile(userId);
+                        } else if (choice == 5) {
                             //change activity title
-                        }else if(choice == 7){
+                        } else if (choice == 6) {
                             //change activity content
-                        }else if(choice == 8){
+                        } else if (choice == 7) {
                             exit = true;
                             break;
                         }
@@ -73,6 +75,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
 
     @Override
     public void signUp() {
+        System.out.println("<><><> Sign up <><><>");
         String name = name();
         String username = username();
         String password = password();
@@ -155,5 +158,136 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
             }
         }
         return password;
+    }
+
+    @Override
+    public void profile(Long id) {
+        User user = findById(id);
+        while(true){
+            try{
+                System.out.println("Your profile");
+                System.out.println("1.Name : " + user.getName());
+                System.out.println("2.Username : " + user.getUsername());
+                System.out.println("3.Password : " + user.getPassword());
+                System.out.println("4.Birth Date : " + user.getBirthDate());
+                System.out.println("5.Email : " + user.getEmail());
+                System.out.println("6.Phone number : " + user.getPhoneNumber());
+                System.out.println("1.change profile            2.back to main menu");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 2){
+                    break;
+                }else if (choice == 1){
+                    System.out.println("Which one?");
+                    int changeProfile = new Scanner(System.in).nextInt();
+                    switch (changeProfile) {
+                        case 1:
+                            String name = name();
+                            user.setName(name);
+                            repository.saveOrUpdate(user);
+                            System.out.println("!!! Your name changed !!!");
+                            break;
+                        case 2:
+                            String username = username();
+                            user.setUsername(username);
+                            repository.saveOrUpdate(user);
+                            System.out.println("!!! Your username changed !!!");
+                            break;
+                        case 3:
+                            String password = password();
+                            user.setPassword(password);
+                            repository.saveOrUpdate(user);
+                            System.out.println("!!! Your password changed !!!");
+                            break;
+                        case 4:
+                            LocalDate birthDate = birthDate();
+                            user.setBirthDate(birthDate);
+                            repository.saveOrUpdate(user);
+                            System.out.println("!!! Your birth Date changed !!!");
+                            break;
+                        case 5:
+                            String email = email();
+                            user.setEmail(email);
+                            repository.saveOrUpdate(user);
+                            System.out.println("!!! Your email changed !!!");
+                            break;
+                        case 6:
+                            String phoneNumber = phoneNumber();
+                            user.setPhoneNumber(phoneNumber);
+                            repository.saveOrUpdate(user);
+                            System.out.println("!!! Your phone number changed !!!");
+                            break;
+                    }
+                }else{
+                    System.out.println("You should choose 1 or 2");
+                    System.out.println("Try again");
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+    }
+
+    private LocalDate birthDate(){
+        LocalDate date;
+        while(true){
+            try{
+                System.out.print("Year : ");
+                int year = new Scanner(System.in).nextInt();
+                System.out.print("Month : ");
+                int month = new Scanner(System.in).nextInt();
+                while(month < 1 || month > 12){
+                    System.out.println("This is not a valid number for month");
+                    System.out.println("Try again");
+                    month = new Scanner(System.in).nextInt();
+                }
+                System.out.print("Day : ");
+                int day = new Scanner(System.in).nextInt();
+                while(day < 1 || day > 31){
+                    System.out.println("This is not a valid number for day");
+                    System.out.println("Try again");
+                    day = new Scanner(System.in).nextInt();
+                }
+                date = LocalDate.of(year,month,day);
+                if(LocalDate.now().isAfter(date)){
+                    break;
+                }else{
+                    System.out.println("This is not a valid date for your birthday");
+                    System.out.println("Try again");
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+        return date;
+    }
+
+    private String email(){
+        Pattern validEmail = Pattern.compile( "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[\\a-zA-Z]{2,6}");
+        System.out.print("Email : ");
+        String email = new Scanner(System.in).next();
+        Matcher machEmail = validEmail.matcher(email);
+        while(!machEmail.matches()){
+            System.out.println("this is not a valid email");
+            System.out.println("Try again");
+            email = new Scanner(System.in).next();
+            machEmail = validEmail.matcher(email);
+        }
+        return email;
+    }
+
+    private String phoneNumber(){
+        Pattern validPhoneNumber = Pattern.compile("[0]{1}[9]{1}[0-9]{9}");
+        System.out.println("Enter your full phone number");
+        String phoneNumber = new Scanner(System.in).next();
+        Matcher matchPhoneNumber = validPhoneNumber.matcher(phoneNumber);
+        while(!matchPhoneNumber.matches()){
+            System.out.println("This is not a valid phone number");
+            System.out.println("Try again");
+            phoneNumber = new Scanner(System.in).next();
+            matchPhoneNumber = validPhoneNumber.matcher(phoneNumber);
+        }
+        return phoneNumber;
     }
 }

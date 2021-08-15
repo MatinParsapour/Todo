@@ -39,4 +39,16 @@ public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User,Long> impl
         }
         return false;
     }
+
+    @Override
+    public Long findId(String username) {
+        List<User> users = findAll();
+        Long id = 0L;
+        for(User user : users){
+            if(user.getUsername().equals(username)){
+                id = user.getId();
+            }
+        }
+        return id;
+    }
 }
