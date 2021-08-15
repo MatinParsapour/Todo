@@ -17,7 +17,8 @@ public class Demonstration {
         System.out.println("|  4.change activity title  |");
         System.out.println("| 5.change activity content |");
         System.out.println("|     6.Your profile        |");
-        System.out.println("|    7.back to main menu    |");
+        System.out.println("|        7.log out          |");
+        System.out.println("|    8.back to main menu    |");
         System.out.println("+---------------------------+");
     }
 

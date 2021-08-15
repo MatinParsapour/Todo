@@ -48,6 +48,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                         } else if (choice == 6) {
                             profile(userId);
                         } else if (choice == 7) {
+                            logOut(findById(userId));
+                            exit = true;
+                            break;
+                        }else if(choice ==8){
                             exit = true;
                             break;
                         }
@@ -227,6 +231,22 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         }
     }
 
+    @Override
+    public void logOut(User user) {
+        System.out.println("Are you sure");
+        System.out.println("1.Yes   2.No");
+        int finalChoice = new Scanner(System.in).nextInt();
+        if (finalChoice == 1) {
+            ApplicationContext.getTaskServiceImpl().removeUserTasks(user);
+            ApplicationContext.getUserServiceImpl().delete(user);
+            System.out.println("We already missed you");
+            System.out.println("Have a good day");
+        } else {
+            System.out.println("You are still logged in");
+        }
+    }
+
+
     private LocalDate birthDate() {
         LocalDate date;
         while (true) {
@@ -289,4 +309,6 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         }
         return phoneNumber;
     }
+
+
 }

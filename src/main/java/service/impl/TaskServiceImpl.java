@@ -249,4 +249,12 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
             }
         }
     }
+
+    @Override
+    public void removeUserTasks(User user) {
+        List<Task> tasks = repository.findUserActivities(user);
+        for(Task task : tasks){
+            delete(task);
+        }
+    }
 }

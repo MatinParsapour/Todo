@@ -10,4 +10,6 @@ public interface UserService extends BaseEntityService<User, Long> {
     void signUp();
 
     void profile(Long id);
+
+    void logOut(User user);
 }
