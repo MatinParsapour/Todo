@@ -15,7 +15,7 @@ public class Task extends BaseEntity<Long> {
 
     private String content;
 
-    private LocalDateTime creationDate;
+    private Date creationDate;
 
     private String status = "open";
 
