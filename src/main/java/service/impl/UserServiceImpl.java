@@ -41,14 +41,14 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                         } else if (choice == 2) {
                             ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
                         } else if (choice == 3) {
-                            //change status
+                            ApplicationContext.getTaskServiceImpl().changeStatus(findById(userId));
                         } else if (choice == 4) {
-                            profile(userId);
-                        } else if (choice == 5) {
                             ApplicationContext.getTaskServiceImpl().changeTitle(findById(userId));
-                        } else if (choice == 6) {
+                        } else if (choice == 5) {
                             ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
-                        } else if (choice == 7) {
+                        } else if (choice == 6) {
+                            profile(userId);
+                        }else if (choice == 7) {
                             exit = true;
                             break;
                         }

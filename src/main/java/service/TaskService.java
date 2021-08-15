@@ -11,4 +11,6 @@ public interface TaskService extends BaseEntityService<Task,Long> {
     void changeTitle(User user);
 
     void changeContent(User user);
+
+    void changeStatus(User user);
 }

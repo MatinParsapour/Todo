@@ -85,11 +85,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskReposi
                         repository.saveOrUpdate(task);
                     }else{
                         System.out.println("This title isn't belong to one of your activities");
-                        System.out.println("1.Back to main menu                   2.Try again");
-                        int wrongTitle = new Scanner(System.in).nextInt();
-                        if(wrongTitle == 1){
-                            break;
-                        }
+                        System.out.println("Try again");
                     }
                 }else if(choice == 2){
                     break;
@@ -127,11 +123,74 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskReposi
                         repository.saveOrUpdate(task);
                     }else{
                         System.out.println("This title isn't belong to one of your activities");
-                        System.out.println("1.Back to main menu                   2.Try again");
-                        int wrongTitle = new Scanner(System.in).nextInt();
-                        if(wrongTitle == 1){
-                            break;
+                        System.out.println("Try again");
+                    }
+                }else if(choice == 2){
+                    break;
+                }else{
+                    System.out.println("You should choose 1 or 2");
+                    System.out.println("Try again");
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Start over");
+            }
+        }
+    }
+
+    @Override
+    public void changeStatus(User user) {
+        while(true){
+            List<Task> tasks = repository.findUserActivities(user);
+            for(Task task : tasks){
+                System.out.println("Title : " + task.getTitle());
+                System.out.println("Content : " + task.getContent());
+                System.out.println("Status : " + task.getStatus());
+            }
+            try{
+                System.out.println("1.Change status            2.Back to main menu");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 1){
+                    System.out.println("Enter title of activity you want to change status : ");
+                    String title = new Scanner(System.in).nextLine();
+                    if(repository.checkTitle(title,user)){
+                        Task task = repository.findActivity(title,user);
+                        if(task.getStatus().equals("open")){
+                            System.out.println("1.Completed            2.In progress");
+                            while (true){
+                                int status = new Scanner(System.in).nextInt();
+                                if(status == 1){
+                                    task.setStatus("completed");
+                                    repository.saveOrUpdate(task);
+                                    break;
+                                }else if(status == 2){
+                                    task.setStatus("In progress");
+                                    repository.saveOrUpdate(task);
+                                    break;
+                                }else{
+                                    System.out.println("You should choose 1 or 2");
+                                    System.out.println("Try again");
+                                }
+                            }
+                        }else{
+                            System.out.println("Is this task completed?");
+                            System.out.println("1.Yes              2.No");
+                            while(true){
+                                int status = new Scanner(System.in).nextInt();
+                                if(status == 1){
+                                    task.setStatus("completed");
+                                    repository.saveOrUpdate(task);
+                                    break;
+                                }else {
+                                    System.out.println("Status of your activity didn't change");
+                                    break;
+                                }
+                            }
                         }
+                    }
+                    else{
+                        System.out.println("This title isn't belong to one of your activities");
+                        System.out.println("Try again");
                     }
                 }else if(choice == 2){
                     break;
