@@ -45,7 +45,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                         } else if (choice == 4) {
                             profile(userId);
                         } else if (choice == 5) {
-                            //change activity title
+                            ApplicationContext.getTaskServiceImpl().changeTitle(findById(userId));
                         } else if (choice == 6) {
                             //change activity content
                         } else if (choice == 7) {
