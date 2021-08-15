@@ -7,33 +7,32 @@ import service.UserService;
 import util.ApplicationContext;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserRepository> implements UserService {
+public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepository> implements UserService {
 
     public UserServiceImpl(UserRepository repository) {
         super(repository);
     }
 
     @Override
-    public void logIn(){
+    public void logIn() {
         System.out.println("<><><> Log in <><><>");
         boolean exit = false;
-        while(!exit){
-            try{
+        while (!exit) {
+            try {
                 Scanner input = new Scanner(System.in);
                 System.out.print("username : ");
                 String username = input.next();
                 System.out.print("password : ");
                 String password = input.next();
-                if(repository.checkUser(username,password)){
+                if (repository.checkUser(username, password)) {
                     Long userId = repository.findId(username);
                     System.out.println("<><><> You logged in <><><>");
-                    while(true) {
+                    while (true) {
                         ApplicationContext.getDemonstration().choicesMenu();
                         int choice = new Scanner(System.in).nextInt();
                         if (choice == 1) {
@@ -48,25 +47,25 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                             ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
                         } else if (choice == 6) {
                             profile(userId);
-                        }else if (choice == 7) {
+                        } else if (choice == 7) {
                             exit = true;
                             break;
                         }
                     }
-                }else{
+                } else {
                     System.out.println("Your username or password is incorrect");
                     System.out.println("1.Back to main menu        2.Try again");
                     int failedLogInChoice = new Scanner(System.in).nextInt();
-                    while(failedLogInChoice < 1 || failedLogInChoice > 2){
+                    while (failedLogInChoice < 1 || failedLogInChoice > 2) {
                         System.out.println("You should choose 1 or 2");
                         System.out.println("Try again");
                         failedLogInChoice = new Scanner(System.in).nextInt();
                     }
-                    if(failedLogInChoice == 1){
+                    if (failedLogInChoice == 1) {
                         exit = true;
                     }
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
@@ -79,25 +78,25 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
         String name = name();
         String username = username();
         String password = password();
-        User user = new User(name,username,password);
+        User user = new User(name, username, password);
         ApplicationContext.getUserServiceImpl().repository.saveOrUpdate(user);
         logIn();
     }
 
-    private String name(){
+    private String name() {
         String name;
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("name : ");
                 name = new Scanner(System.in).next();
                 System.out.println("1.Acceptable            2.Unacceptable");
                 int setName = new Scanner(System.in).nextInt();
-                if(setName == 1){
+                if (setName == 1) {
                     break;
-                }else{
+                } else {
                     System.out.println("Now try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You have to enter number");
                 System.out.println("Start over");
             }
@@ -105,25 +104,25 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
         return name;
     }
 
-    private String username(){
+    private String username() {
         String username;
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Username : ");
                 username = new Scanner(System.in).next();
-                if(!ApplicationContext.getUserServiceImpl().repository.exists(username)){
+                if (!ApplicationContext.getUserServiceImpl().repository.exists(username)) {
                     System.out.println("1.Acceptable              2.Unacceptable");
                     int choice = new Scanner(System.in).nextInt();
-                    if(choice == 1){
+                    if (choice == 1) {
                         break;
-                    }else{
+                    } else {
                         System.out.println("Now try again");
                     }
-                }else{
+                } else {
                     System.out.println("Sorry!! there is a username like this");
                     System.out.println("try another username");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
@@ -131,15 +130,15 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
         return username;
     }
 
-    private String password(){
+    private String password() {
         String password;
-        while(true){
-            try{
+        while (true) {
+            try {
                 Pattern pattern = Pattern.compile("[0-9]{10}");
                 System.out.print("Password : ");
                 password = new Scanner(System.in).next();
-                Matcher matcher  = pattern.matcher(password);
-                while(!matcher.matches()){
+                Matcher matcher = pattern.matcher(password);
+                while (!matcher.matches()) {
                     System.out.println("You should enter a 10-digit password");
                     System.out.println("Try again");
                     password = new Scanner(System.in).next();
@@ -147,12 +146,12 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                 }
                 System.out.println("1.Acceptable         2.Unacceptable");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     break;
-                }else{
+                } else {
                     System.out.println("Nowtry again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
@@ -163,8 +162,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
     @Override
     public void profile(Long id) {
         User user = findById(id);
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.println("Your profile");
                 System.out.println("1.Name : " + user.getName());
                 System.out.println("2.Username : " + user.getUsername());
@@ -174,9 +173,9 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                 System.out.println("6.Phone number : " + user.getPhoneNumber());
                 System.out.println("1.change profile            2.back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 2){
+                if (choice == 2) {
                     break;
-                }else if (choice == 1){
+                } else if (choice == 1) {
                     System.out.println("Which one?");
                     int changeProfile = new Scanner(System.in).nextInt();
                     switch (changeProfile) {
@@ -217,45 +216,45 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
                             System.out.println("!!! Your phone number changed !!!");
                             break;
                     }
-                }else{
+                } else {
                     System.out.println("You should choose 1 or 2");
                     System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Try again");
             }
         }
     }
 
-    private LocalDate birthDate(){
+    private LocalDate birthDate() {
         LocalDate date;
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Year : ");
                 int year = new Scanner(System.in).nextInt();
                 System.out.print("Month : ");
                 int month = new Scanner(System.in).nextInt();
-                while(month < 1 || month > 12){
+                while (month < 1 || month > 12) {
                     System.out.println("This is not a valid number for month");
                     System.out.println("Try again");
                     month = new Scanner(System.in).nextInt();
                 }
                 System.out.print("Day : ");
                 int day = new Scanner(System.in).nextInt();
-                while(day < 1 || day > 31){
+                while (day < 1 || day > 31) {
                     System.out.println("This is not a valid number for day");
                     System.out.println("Try again");
                     day = new Scanner(System.in).nextInt();
                 }
-                date = LocalDate.of(year,month,day);
-                if(LocalDate.now().isAfter(date)){
+                date = LocalDate.of(year, month, day);
+                if (LocalDate.now().isAfter(date)) {
                     break;
-                }else{
+                } else {
                     System.out.println("This is not a valid date for your birthday");
                     System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Try again");
             }
@@ -263,12 +262,12 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
         return date;
     }
 
-    private String email(){
-        Pattern validEmail = Pattern.compile( "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[\\a-zA-Z]{2,6}");
+    private String email() {
+        Pattern validEmail = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[\\a-zA-Z]{2,6}");
         System.out.print("Email : ");
         String email = new Scanner(System.in).next();
         Matcher machEmail = validEmail.matcher(email);
-        while(!machEmail.matches()){
+        while (!machEmail.matches()) {
             System.out.println("this is not a valid email");
             System.out.println("Try again");
             email = new Scanner(System.in).next();
@@ -277,12 +276,12 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User,Long, UserReposi
         return email;
     }
 
-    private String phoneNumber(){
-        Pattern validPhoneNumber = Pattern.compile("[0]{1}[9]{1}[0-9]{9}");
+    private String phoneNumber() {
+        Pattern validPhoneNumber = Pattern.compile("[0][9][0-9]{9}");
         System.out.println("Enter your full phone number");
         String phoneNumber = new Scanner(System.in).next();
         Matcher matchPhoneNumber = validPhoneNumber.matcher(phoneNumber);
-        while(!matchPhoneNumber.matches()){
+        while (!matchPhoneNumber.matches()) {
             System.out.println("This is not a valid phone number");
             System.out.println("Try again");
             phoneNumber = new Scanner(System.in).next();

@@ -20,10 +20,10 @@ public class ApplicationContext {
 
     private static final Demonstration demonstration;
 
-    private ApplicationContext(){
+    private ApplicationContext() {
     }
 
-    static{
+    static {
         EntityManager entityManager = HibernateUtil.getEntityManagerFactory().createEntityManager();
         userRepository = new UserRepositoryImpl(entityManager);
         userServiceImpl = new UserServiceImpl(userRepository);
@@ -31,11 +31,16 @@ public class ApplicationContext {
         taskServiceImpl = new TaskServiceImpl(taskRepository);
         demonstration = new Demonstration();
     }
-    public static UserServiceImpl getUserServiceImpl(){
+
+    public static UserServiceImpl getUserServiceImpl() {
         return userServiceImpl;
     }
 
-    public static Demonstration getDemonstration(){return demonstration;}
+    public static Demonstration getDemonstration() {
+        return demonstration;
+    }
 
-    public static TaskServiceImpl getTaskServiceImpl(){return taskServiceImpl;}
+    public static TaskServiceImpl getTaskServiceImpl() {
+        return taskServiceImpl;
+    }
 }

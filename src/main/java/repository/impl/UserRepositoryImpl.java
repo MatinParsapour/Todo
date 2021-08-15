@@ -7,7 +7,7 @@ import repository.UserRepository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User,Long> implements UserRepository {
+public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User, Long> implements UserRepository {
     public UserRepositoryImpl(EntityManager entityManager) {
         super(entityManager);
     }
@@ -20,20 +20,20 @@ public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User,Long> impl
     @Override
     public boolean checkUser(String username, String password) {
         List<User> users = findAll();
-         for (User user : users) {
-            if(user.getUsername().equals(username)
-                    && user.getPassword().equals(password)){
+        for (User user : users) {
+            if (user.getUsername().equals(username)
+                    && user.getPassword().equals(password)) {
                 return true;
             }
         }
-         return false;
+        return false;
     }
 
     @Override
     public boolean exists(String username) {
         List<User> users = findAll();
-        for(User user : users){
-            if(user.getUsername().equals(username)){
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
                 return true;
             }
         }
@@ -44,8 +44,8 @@ public class UserRepositoryImpl extends BaseEntityRepositoryImpl<User,Long> impl
     public Long findId(String username) {
         List<User> users = findAll();
         Long id = 0L;
-        for(User user : users){
-            if(user.getUsername().equals(username)){
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
                 id = user.getId();
             }
         }

@@ -6,7 +6,7 @@ import domain.User;
 
 import java.util.List;
 
-public interface TaskRepository extends BaseEntityRepository<Task,Long> {
+public interface TaskRepository extends BaseEntityRepository<Task, Long> {
 
     List<Task> findUserActivities(User user);
 

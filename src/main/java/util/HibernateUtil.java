@@ -9,7 +9,8 @@ public class HibernateUtil {
     static {
         entityManagerFactory = Persistence.createEntityManagerFactory("matin");
     }
-    public static EntityManagerFactory getEntityManagerFactory(){
+
+    public static EntityManagerFactory getEntityManagerFactory() {
         return entityManagerFactory;
     }
 }

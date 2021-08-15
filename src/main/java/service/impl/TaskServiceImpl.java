@@ -11,7 +11,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskRepository> implements TaskService {
+public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepository> implements TaskService {
     public TaskServiceImpl(TaskRepository repository) {
         super(repository);
     }
@@ -20,22 +20,22 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskReposi
     public void addActivity(User user) {
         String title = title();
         String content = content();
-        Task task = new Task(title,content,new Date(),user);
+        Task task = new Task(title, content, new Date(), user);
         repository.saveOrUpdate(task);
     }
 
-    private String title(){
+    private String title() {
         String title;
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Title : ");
                 title = new Scanner(System.in).nextLine();
                 System.out.println("1.Acceptable            2.Unacceptable");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
@@ -43,18 +43,18 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskReposi
         return title;
     }
 
-    private String content(){
+    private String content() {
         String content;
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Content : ");
                 content = new Scanner(System.in).nextLine();
                 System.out.println("1.Acceptable            2.Unacceptable");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
@@ -64,36 +64,36 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskReposi
 
     @Override
     public void changeTitle(User user) {
-        while(true){
+        while (true) {
             List<Task> tasks = repository.findUserActivities(user);
-            for(Task task : tasks){
+            for (Task task : tasks) {
                 System.out.println("Title : " + task.getTitle());
                 System.out.println("Content : " + task.getContent());
                 System.out.println("Status : " + task.getStatus());
             }
-            try{
+            try {
                 System.out.println("1.Change title          2.Back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     System.out.print("Enter the title of activity you want to change title : ");
                     String title = new Scanner(System.in).nextLine();
-                    if(repository.checkTitle(title,user)){
-                        Task task = repository.findActivity(title,user);
+                    if (repository.checkTitle(title, user)) {
+                        Task task = repository.findActivity(title, user);
                         System.out.print("New title : ");
                         String newTitle = new Scanner(System.in).nextLine();
                         task.setTitle(newTitle);
                         repository.saveOrUpdate(task);
-                    }else{
+                    } else {
                         System.out.println("This title isn't belong to one of your activities");
                         System.out.println("Try again");
                     }
-                }else if(choice == 2){
+                } else if (choice == 2) {
                     break;
-                }else{
+                } else {
                     System.out.println("you should choose 1 or 2");
                     System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
@@ -102,36 +102,36 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskReposi
 
     @Override
     public void changeContent(User user) {
-        while(true){
+        while (true) {
             List<Task> tasks = repository.findUserActivities(user);
-            for(Task task : tasks){
+            for (Task task : tasks) {
                 System.out.println("Title : " + task.getTitle());
                 System.out.println("Content : " + task.getContent());
                 System.out.println("Status : " + task.getStatus());
             }
-            try{
+            try {
                 System.out.println("1.Change content              2.Back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     System.out.print("Enter title of activity you want to change content : ");
                     String title = new Scanner(System.in).nextLine();
-                    if(repository.checkTitle(title,user)){
-                        Task task = repository.findActivity(title,user);
+                    if (repository.checkTitle(title, user)) {
+                        Task task = repository.findActivity(title, user);
                         System.out.print("New content : ");
                         String newContent = new Scanner(System.in).nextLine();
                         task.setContent(newContent);
                         repository.saveOrUpdate(task);
-                    }else{
+                    } else {
                         System.out.println("This title isn't belong to one of your activities");
                         System.out.println("Try again");
                     }
-                }else if(choice == 2){
+                } else if (choice == 2) {
                     break;
-                }else{
+                } else {
                     System.out.println("You should choose 1 or 2");
                     System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }
@@ -140,65 +140,64 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task,Long, TaskReposi
 
     @Override
     public void changeStatus(User user) {
-        while(true){
+        while (true) {
             List<Task> tasks = repository.findUserActivities(user);
-            for(Task task : tasks){
+            for (Task task : tasks) {
                 System.out.println("Title : " + task.getTitle());
                 System.out.println("Content : " + task.getContent());
                 System.out.println("Status : " + task.getStatus());
             }
-            try{
+            try {
                 System.out.println("1.Change status            2.Back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     System.out.println("Enter title of activity you want to change status : ");
                     String title = new Scanner(System.in).nextLine();
-                    if(repository.checkTitle(title,user)){
-                        Task task = repository.findActivity(title,user);
-                        if(task.getStatus().equals("open")){
+                    if (repository.checkTitle(title, user)) {
+                        Task task = repository.findActivity(title, user);
+                        if (task.getStatus().equals("open")) {
                             System.out.println("1.Completed            2.In progress");
-                            while (true){
+                            while (true) {
                                 int status = new Scanner(System.in).nextInt();
-                                if(status == 1){
+                                if (status == 1) {
                                     task.setStatus("completed");
                                     repository.saveOrUpdate(task);
                                     break;
-                                }else if(status == 2){
+                                } else if (status == 2) {
                                     task.setStatus("In progress");
                                     repository.saveOrUpdate(task);
                                     break;
-                                }else{
+                                } else {
                                     System.out.println("You should choose 1 or 2");
                                     System.out.println("Try again");
                                 }
                             }
-                        }else{
+                        } else {
                             System.out.println("Is this task completed?");
                             System.out.println("1.Yes              2.No");
-                            while(true){
+                            while (true) {
                                 int status = new Scanner(System.in).nextInt();
-                                if(status == 1){
+                                if (status == 1) {
                                     task.setStatus("completed");
                                     repository.saveOrUpdate(task);
                                     break;
-                                }else {
+                                } else {
                                     System.out.println("Status of your activity didn't change");
                                     break;
                                 }
                             }
                         }
-                    }
-                    else{
+                    } else {
                         System.out.println("This title isn't belong to one of your activities");
                         System.out.println("Try again");
                     }
-                }else if(choice == 2){
+                } else if (choice == 2) {
                     break;
-                }else{
+                } else {
                     System.out.println("You should choose 1 or 2");
                     System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
             }

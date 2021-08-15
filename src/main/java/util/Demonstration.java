@@ -1,14 +1,15 @@
 package util;
 
 public class Demonstration {
-    public void mainMenu(){
+    public void mainMenu() {
         System.out.println("+-----------------------+");
         System.out.println("|       1.Sign Up       |");
         System.out.println("|        2.Log In       |");
         System.out.println("|         3.Exit        |");
         System.out.println("+-----------------------+");
     }
-    public void choicesMenu(){
+
+    public void choicesMenu() {
         System.out.println("+---------------------------+");
         System.out.println("|   1.See your activities   |");
         System.out.println("|     2.add an activity     |");

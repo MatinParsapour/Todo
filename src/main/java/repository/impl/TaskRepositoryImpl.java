@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskRepositoryImpl extends BaseEntityRepositoryImpl<Task,Long> implements TaskRepository {
+public class TaskRepositoryImpl extends BaseEntityRepositoryImpl<Task, Long> implements TaskRepository {
     public TaskRepositoryImpl(EntityManager entityManager) {
         super(entityManager);
     }
@@ -23,8 +23,8 @@ public class TaskRepositoryImpl extends BaseEntityRepositoryImpl<Task,Long> impl
     public List<Task> findUserActivities(User user) {
         List<Task> tasks = findAll();
         List<Task> userTasks = new ArrayList<>();
-        for(Task task : tasks){
-            if(task.getUser().equals(user)){
+        for (Task task : tasks) {
+            if (task.getUser().equals(user)) {
                 userTasks.add(task);
             }
         }
@@ -34,8 +34,8 @@ public class TaskRepositoryImpl extends BaseEntityRepositoryImpl<Task,Long> impl
     @Override
     public boolean checkTitle(String title, User user) {
         List<Task> tasks = findAll();
-        for(Task task : tasks){
-            if(task.getTitle().equals(title) && task.getUser().equals(user)){
+        for (Task task : tasks) {
+            if (task.getTitle().equals(title) && task.getUser().equals(user)) {
                 return true;
             }
         }
@@ -46,8 +46,8 @@ public class TaskRepositoryImpl extends BaseEntityRepositoryImpl<Task,Long> impl
     public Task findActivity(String title, User user) {
         List<Task> userTasks = findUserActivities(user);
         Task userTask = new Task();
-        for(Task task : userTasks){
-            if(task.getTitle().equals(title)){
+        for (Task task : userTasks) {
+            if (task.getTitle().equals(title)) {
                 userTask = task;
             }
         }
