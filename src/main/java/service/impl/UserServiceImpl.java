@@ -312,6 +312,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                     Thread.sleep(1000);
                     System.out.print(" .");
                 }
+                System.out.println("Now you are good to go");
                 System.out.println("\nYour email is valid");
                 return email;
             }else{
