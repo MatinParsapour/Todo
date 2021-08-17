@@ -11,6 +11,12 @@ public class DemonstrateInformation {
                 username = user.getUsername().length(),
                 password = user.getPassword().length() ,
                 birthdate = 10;
+        int lastName;
+        if(user.getLastName() == null){
+            lastName = 4;
+        }else{
+            lastName = user.getLastName().length();
+        }
         int email;
         if(user.getEmail() == null){
             email = 4;
@@ -24,17 +30,17 @@ public class DemonstrateInformation {
             phoneNumber = user.getPhoneNumber().length();
         }
 
-        int dashLength = firstName+username+password+birthdate+email+phoneNumber+47;
+        int dashLength = firstName+lastName+username+password+birthdate+email+phoneNumber+47;
 
-        printUserHeader(dashLength,firstName,username,password,birthdate,email,phoneNumber);
+        printUserHeader(dashLength,firstName,lastName,username,password,birthdate,email,phoneNumber);
 
-        printUserData(dashLength,firstName,username,password,birthdate,email,phoneNumber,user);
+        printUserData(dashLength,firstName,lastName,username,password,birthdate,email,phoneNumber,user);
     }
 
 
 
-    private void printUserHeader(int dashLength,int name,
-                                 int username,int password,
+    private void printUserHeader(int dashLength,int firstName,
+                                 int lastName,int username,int password,
                                  int birthdate,int email,
                                  int phoneNumber){
         System.out.print("+");
@@ -43,7 +49,8 @@ public class DemonstrateInformation {
         }
         System.out.println("+");
 
-        System.out.format("| %" + (-(name+6)) + "s","name");
+        System.out.format("| %" + (-(firstName+6)) + "s","firstname");
+        System.out.format("|%" + (-(lastName+5)) + "s","lastname");
         System.out.format("|%" + (-(username+15)) + "s","username");
         System.out.format("|%" + (-(password+5)) + "s","password");
         System.out.format("|%" + (-(birthdate+5)) + "s","birthdate");
@@ -57,11 +64,16 @@ public class DemonstrateInformation {
         System.out.println("+");
     }
 
-    private void printUserData(int dashLength,int name,
-                               int username,int password,
+    private void printUserData(int dashLength,int firstName,
+                               int lastName,int username,int password,
                                int birthdate,int email,
                                int phoneNumber,User user){
-        System.out.format("| %" + (-(name+6)) + "s",user.getFirstName());
+        System.out.format("| %" + (-(firstName+6)) + "s",user.getFirstName());
+        if(user.getLastName() == null){
+            System.out.format("|%" + (-(lastName+5)) + "s","");
+        }else{
+            System.out.format("|%" + (-(lastName+5)) + "s",user.getLastName());
+        }
         System.out.format("|%" + (-(username+15)) + "s",user.getUsername());
         System.out.format("|%" + (-(password+5)) + "s",user.getPassword());
         if(user.getBirthDate() == null){

@@ -12,6 +12,8 @@ public class User extends BaseEntity<Long> {
 
     private String firstName;
 
+    private String lastName;
+
     private String username;
 
     private String password;
@@ -37,6 +39,14 @@ public class User extends BaseEntity<Long> {
 
     public void setFirstName(String name) {
         this.firstName = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
