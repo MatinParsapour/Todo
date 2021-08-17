@@ -207,46 +207,51 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
 
     @Override
     public void seeActivities(User user) {
-        while(true){
-            try{
-                ApplicationContext.getDemonstration().seeActivitiesMenu();
-                int seeActivitiesBasedOn;
-                while(true){
-                    seeActivitiesBasedOn = new Scanner(System.in).nextInt();
-                    if(seeActivitiesBasedOn >=1 && seeActivitiesBasedOn <= 4){
-                        break;
-                    }else{
-                        System.out.println("You should choose between menu options");
-                        System.out.println("Try again");
+        List<Task> taskList = repository.findUserActivities(user);
+        if(taskList.size() != 0){
+            while(true){
+                try{
+                    ApplicationContext.getDemonstration().seeActivitiesMenu();
+                    int seeActivitiesBasedOn;
+                    while(true){
+                        seeActivitiesBasedOn = new Scanner(System.in).nextInt();
+                        if(seeActivitiesBasedOn >=1 && seeActivitiesBasedOn <= 4){
+                            break;
+                        }else{
+                            System.out.println("You should choose between menu options");
+                            System.out.println("Try again");
+                        }
                     }
-                }
-                if(seeActivitiesBasedOn == 4){
-                    break;
-                }
-                ApplicationContext.getDemonstration().howSeeActivities();
-                int ascOrDesc;
-                while(true){
-                    ascOrDesc = new Scanner(System.in).nextInt();
-                    if(ascOrDesc == 1 || ascOrDesc == 2){
+                    if(seeActivitiesBasedOn == 4){
                         break;
-                    }else{
-                        System.out.println("You should choose between menu options");
-                        System.out.println("Try again");
                     }
+                    ApplicationContext.getDemonstration().howSeeActivities();
+                    int ascOrDesc;
+                    while(true){
+                        ascOrDesc = new Scanner(System.in).nextInt();
+                        if(ascOrDesc == 1 || ascOrDesc == 2){
+                            break;
+                        }else{
+                            System.out.println("You should choose between menu options");
+                            System.out.println("Try again");
+                        }
+                    }
+                    List<Task> tasks = repository.sortActivities(seeActivitiesBasedOn,ascOrDesc,user);
+                    for(Task task : tasks){
+                        System.out.println("********************************");
+                        System.out.printf("Title : %-10s\n" , task.getTitle());
+                        System.out.printf("Content : %-10s\n" , task.getContent());
+                        System.out.printf("Date : %-10s\n" , task.getCreationDate());
+                        System.out.printf("Status : %-10s\n" , task.getStatus());
+                        System.out.println("********************************");
+                    }
+                }catch (InputMismatchException exception){
+                    System.out.println("You should enter number");
+                    System.out.println("Try again");
                 }
-                List<Task> tasks = repository.sortActivities(seeActivitiesBasedOn,ascOrDesc,user);
-                for(Task task : tasks){
-                    System.out.println("********************************");
-                    System.out.printf("Title : %-10s\n" , task.getTitle());
-                    System.out.printf("Content : %-10s\n" , task.getContent());
-                    System.out.printf("Date : %-10s\n" , task.getCreationDate());
-                    System.out.printf("Status : %-10s\n" , task.getStatus());
-                    System.out.println("********************************");
-                }
-            }catch (InputMismatchException exception){
-                System.out.println("You should enter number");
-                System.out.println("Try again");
             }
+        }else{
+            System.out.println("You don't have any task yet");
         }
     }
 
