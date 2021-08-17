@@ -21,13 +21,11 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID exten
         entityManagaer.getTransaction().begin();
         if(e.getId() == null){
             entityManagaer.persist(e);
-            entityManagaer.getTransaction().commit();
-            return e;
         }else{
-            entityManagaer.persist(e);
-            entityManagaer.getTransaction().commit();
-            return e;
+            entityManagaer.merge(e);
         }
+        entityManagaer.getTransaction().commit();
+        return e;
     }
 
     @Override

@@ -18,9 +18,7 @@ public class BaseEntityServiceImpl<E extends BaseEntity<ID>,ID extends Serializa
 
     @Override
     public E saveOrUpdate(E e) {
-        repository.getEntityManager().getTransaction().begin();
         e  = repository.saveOrUpdate(e);
-        repository.getEntityManager().getTransaction().commit();
         return e;
     }
 
