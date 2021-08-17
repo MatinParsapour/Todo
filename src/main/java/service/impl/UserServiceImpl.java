@@ -53,7 +53,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                             logOut(findById(userId));
                             exit = true;
                             break;
-                        }else if(choice ==8){
+                        } else if (choice == 8) {
                             exit = true;
                             break;
                         }
@@ -171,14 +171,14 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         while (true) {
             try {
                 ApplicationContext.getDemonstrateInformation().demonstratUserInfo(user);
-                System.out.println("1.change profile            2.back to main menu");
+                System.out.println("1.Change profile         2.Delete a field   2.Back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if (choice == 2) {
+                if (choice == 3) {
                     break;
                 } else if (choice == 1) {
-                    System.out.println("Which one?");
-                    String changeProfile = new Scanner(System.in).nextLine();
-                    changeProfileFields(changeProfile,user);
+                    changeProfileFields(user);
+                } else if (choice == 2) {
+                    deleteProfileFields(user);
                 } else {
                     System.out.println("You should choose 1 or 2");
                     System.out.println("Try again");
@@ -253,10 +253,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             email = new Scanner(System.in).next();
             machEmail = validEmail.matcher(email);
         }
-        while(true){
+        while (true) {
             int validationCode = random.nextInt(1000000);
             System.out.println("Please wait, we are sending a validation code to " + email);
-            for(int waiting = 0 ; waiting <= 10 ; waiting++){
+            for (int waiting = 0; waiting <= 10; waiting++) {
                 Thread.sleep(1000);
                 System.out.print("" + "🟩");
             }
@@ -264,20 +264,20 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             System.out.println("This is your validation code : " + validationCode);
             System.out.print("Write your validation code : ");
             int validate = new Scanner(System.in).nextInt();
-            if(validate == validationCode){
+            if (validate == validationCode) {
                 System.out.print("Please wait, we are syncing data");
-                for(int delay = 0 ; delay <= 10 ; delay++){
+                for (int delay = 0; delay <= 10; delay++) {
                     Thread.sleep(1000);
                     System.out.print(" .");
                 }
                 System.out.println("Now you are good to go");
                 System.out.println("\nYour email is valid");
                 return email;
-            }else{
+            } else {
                 System.out.println("Invalid code");
                 System.out.println("1.Send another code       2.back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 2){
+                if (choice == 2) {
                     return previousEmail;
                 }
             }
@@ -296,31 +296,33 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             phoneNumber = new Scanner(System.in).next();
             matchPhoneNumber = validPhoneNumber.matcher(phoneNumber);
         }
-        while(true){
+        while (true) {
             int validationCode = random.nextInt(1000000);
             System.out.println("Please wait, we are sending a validation code to " + phoneNumber);
-            for(int waiting = 0 ; waiting <= 10 ; waiting++){
+            for (int waiting = 0; waiting <= 10; waiting++) {
                 Thread.sleep(1000);
                 System.out.print("" + "🟩");
             }
             System.out.println("\nThis is your validation code : " + validationCode);
             System.out.print("Write your validation code : ");
             int validate = new Scanner(System.in).nextInt();
-            if(validate == validationCode){
+            if (validate == validationCode) {
                 System.out.println("Your phone is valid");
                 return phoneNumber;
-            }else{
+            } else {
                 System.out.println("Invalid code");
                 System.out.println("1.Send another code       2.back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if(choice == 2){
+                if (choice == 2) {
                     return number;
                 }
             }
         }
     }
 
-    private void changeProfileFields(String changeProfile,User user) throws InterruptedException {
+    private void changeProfileFields(User user) throws InterruptedException {
+        System.out.println("Which one?");
+        String changeProfile = new Scanner(System.in).nextLine();
         switch (changeProfile.toLowerCase()) {
             case "name":
                 String name = name();
@@ -360,6 +362,64 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 break;
             default:
                 System.out.println("You should enter name of field like the what you see");
+        }
+    }
+
+    private void deleteProfileFields(User user) {
+        System.out.println("Which one?");
+        String deleteProfile = new Scanner(System.in).next();
+        try{
+            switch (deleteProfile.toLowerCase()){
+                case "name":
+                case "username":
+                case "password":
+                    System.out.println("You can't delete this field");
+                    break;
+                case "birthdate":
+                    user.getBirthDate().equals(null);
+                    System.out.println("Are you sure?");
+                    System.out.println("1.Yes    2.No");
+                    int choice = new Scanner(System.in).nextInt();
+                    if(choice == 1){
+                        user.setBirthDate(null);
+                        repository.saveOrUpdate(user);
+                        System.out.println("Your birthdate is clear");
+                        break;
+                    }else{
+                        System.out.println("Nothing changed");
+                        break;
+                    }
+                case "email":
+                    user.getEmail().equals(null);
+                    System.out.println("Are you sure?");
+                    System.out.println("1.Yes    2.No");
+                    choice = new Scanner(System.in).nextInt();
+                    if(choice == 1){
+                        user.setEmail(null);
+                        repository.saveOrUpdate(user);
+                        System.out.println("Your email is clear");
+                        break;
+                    }else{
+                        System.out.println("Nothing changed");
+                        break;
+                    }
+                case "phonenumber":
+                    user.getPhoneNumber().equals(null);
+                    System.out.println("Are you sure?");
+                    System.out.println("1.Yes    2.No");
+                    choice = new Scanner(System.in).nextInt();
+                    if(choice == 1){
+                        user.setPhoneNumber(null);
+                        repository.saveOrUpdate(user);
+                        System.out.println("Your phone number is clear");
+                        break;
+                    }else{
+                        System.out.println("Nothing changed");
+                        break;
+                    }
+            }
+        }catch (NullPointerException exception){
+            System.out.println("This field already has nothing");
         }
     }
 }
