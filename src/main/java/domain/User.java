@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table(name = "user")
 public class User extends BaseEntity<Long> {
 
-    private String name;
+    private String firstName;
 
     private String username;
 
@@ -25,18 +25,18 @@ public class User extends BaseEntity<Long> {
     public User(){
     }
 
-    public User(String name, String username, String password){
-        this.name = name;
+    public User(String firstName, String username, String password){
+        this.firstName = firstName;
         this.username = username;
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
     public String getUsername() {

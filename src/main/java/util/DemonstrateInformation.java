@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DemonstrateInformation {
     public void demonstratUserInfo(User user){
-        int name = user.getName().length(),
+        int firstName = user.getFirstName().length(),
                 username = user.getUsername().length(),
                 password = user.getPassword().length() ,
                 birthdate = 10;
@@ -24,11 +24,11 @@ public class DemonstrateInformation {
             phoneNumber = user.getPhoneNumber().length();
         }
 
-        int dashLength = name+username+password+birthdate+email+phoneNumber+47;
+        int dashLength = firstName+username+password+birthdate+email+phoneNumber+47;
 
-        printUserHeader(dashLength,name,username,password,birthdate,email,phoneNumber);
+        printUserHeader(dashLength,firstName,username,password,birthdate,email,phoneNumber);
 
-        printUserData(dashLength,name,username,password,birthdate,email,phoneNumber,user);
+        printUserData(dashLength,firstName,username,password,birthdate,email,phoneNumber,user);
     }
 
 
@@ -61,7 +61,7 @@ public class DemonstrateInformation {
                                int username,int password,
                                int birthdate,int email,
                                int phoneNumber,User user){
-        System.out.format("| %" + (-(name+6)) + "s",user.getName());
+        System.out.format("| %" + (-(name+6)) + "s",user.getFirstName());
         System.out.format("|%" + (-(username+15)) + "s",user.getUsername());
         System.out.format("|%" + (-(password+5)) + "s",user.getPassword());
         if(user.getBirthDate() == null){

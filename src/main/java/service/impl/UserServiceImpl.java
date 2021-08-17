@@ -5,7 +5,6 @@ import domain.User;
 import repository.UserRepository;
 import service.UserService;
 import util.ApplicationContext;
-import util.DemonstrateInformation;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -328,7 +327,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         switch (changeProfile.toLowerCase()) {
             case "name":
                 String name = name();
-                user.setName(name);
+                user.setFirstName(name);
                 repository.saveOrUpdate(user);
                 System.out.println("!!! Your name changed !!!");
                 break;
