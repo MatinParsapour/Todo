@@ -22,8 +22,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
     @Override
     public void logIn() {
         System.out.println("<><><> Log in <><><>");
-        boolean exit = false;
-        while (!exit) {
+        while (true) {
             try {
                 Scanner input = new Scanner(System.in);
                 System.out.print("username : ");
@@ -33,32 +32,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 if (repository.checkUser(username, password)) {
                     Long userId = repository.findId(username);
                     System.out.println("<><><> You logged in <><><>");
-                    while (true) {
-                        ApplicationContext.getDemonstration().choicesMenu();
-                        int choice = new Scanner(System.in).nextInt();
-                        if (choice == 1) {
-                            ApplicationContext.getTaskServiceImpl().seeActivities(findById(userId));
-                        } else if (choice == 2) {
-                            ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
-                        } else if (choice == 3) {
-                            ApplicationContext.getTaskServiceImpl().changeStatus(findById(userId));
-                        } else if (choice == 4) {
-                            ApplicationContext.getTaskServiceImpl().changeTitle(findById(userId));
-                        } else if (choice == 5) {
-                            ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
-                        } else if (choice == 6) {
-                            ApplicationContext.getTaskServiceImpl().removeUserTask(findById(userId));
-                        } else if (choice == 7) {
-                            profile(userId);
-                        } else if (choice == 8) {
-                            logOut(findById(userId));
-                            exit = true;
-                            break;
-                        } else if (choice == 9) {
-                            exit = true;
-                            break;
-                        }
-                    }
+                    mainMenu(userId);
+                    break;
                 } else {
                     System.out.println("Your username or password is incorrect");
                     System.out.println("1.Back to main menu        2.Try again");
@@ -69,12 +44,39 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                         failedLogInChoice = new Scanner(System.in).nextInt();
                     }
                     if (failedLogInChoice == 1) {
-                        exit = true;
+                        break;
                     }
                 }
             } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Start over");
+            }
+        }
+    }
+
+    private void mainMenu(Long userId){
+        while (true) {
+            ApplicationContext.getDemonstration().choicesMenu();
+            int choice = new Scanner(System.in).nextInt();
+            if (choice == 1) {
+                ApplicationContext.getTaskServiceImpl().seeActivities(findById(userId));
+            } else if (choice == 2) {
+                ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
+            } else if (choice == 3) {
+                ApplicationContext.getTaskServiceImpl().changeStatus(findById(userId));
+            } else if (choice == 4) {
+                ApplicationContext.getTaskServiceImpl().changeTitle(findById(userId));
+            } else if (choice == 5) {
+                ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
+            } else if (choice == 6) {
+                ApplicationContext.getTaskServiceImpl().removeUserTask(findById(userId));
+            } else if (choice == 7) {
+                profile(userId);
+            } else if (choice == 8) {
+                logOut(findById(userId));
+                break;
+            } else if (choice == 9) {
+                break;
             }
         }
     }
