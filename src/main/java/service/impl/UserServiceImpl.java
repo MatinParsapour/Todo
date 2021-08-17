@@ -178,46 +178,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 } else if (choice == 1) {
                     System.out.println("Which one?");
                     String changeProfile = new Scanner(System.in).nextLine();
-                    switch (changeProfile.toLowerCase()) {
-                        case "name":
-                            String name = name();
-                            user.setName(name);
-                            repository.saveOrUpdate(user);
-                            System.out.println("!!! Your name changed !!!");
-                            break;
-                        case "username":
-                            String username = username();
-                            user.setUsername(username);
-                            repository.saveOrUpdate(user);
-                            System.out.println("!!! Your username changed !!!");
-                            break;
-                        case "password":
-                            String password = password();
-                            user.setPassword(password);
-                            repository.saveOrUpdate(user);
-                            System.out.println("!!! Your password changed !!!");
-                            break;
-                        case "birthdate":
-                            LocalDate birthDate = birthDate();
-                            user.setBirthDate(birthDate);
-                            repository.saveOrUpdate(user);
-                            System.out.println("!!! Your birth Date changed !!!");
-                            break;
-                        case "email":
-                            String email = email(user.getEmail());
-                            user.setEmail(email);
-                            repository.saveOrUpdate(user);
-                            System.out.println("!!! Your email changed !!!");
-                            break;
-                        case "phonenumber":
-                            String phoneNumber = phoneNumber(user.getPhoneNumber());
-                            user.setPhoneNumber(phoneNumber);
-                            repository.saveOrUpdate(user);
-                            System.out.println("!!! Your phone number changed !!!");
-                            break;
-                        default:
-                            System.out.println("You should enter name of field like the what you see");
-                    }
+                    changeProfileFields(changeProfile,user);
                 } else {
                     System.out.println("You should choose 1 or 2");
                     System.out.println("Try again");
@@ -356,6 +317,49 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                     return number;
                 }
             }
+        }
+    }
+
+    private void changeProfileFields(String changeProfile,User user) throws InterruptedException {
+        switch (changeProfile.toLowerCase()) {
+            case "name":
+                String name = name();
+                user.setName(name);
+                repository.saveOrUpdate(user);
+                System.out.println("!!! Your name changed !!!");
+                break;
+            case "username":
+                String username = username();
+                user.setUsername(username);
+                repository.saveOrUpdate(user);
+                System.out.println("!!! Your username changed !!!");
+                break;
+            case "password":
+                String password = password();
+                user.setPassword(password);
+                repository.saveOrUpdate(user);
+                System.out.println("!!! Your password changed !!!");
+                break;
+            case "birthdate":
+                LocalDate birthDate = birthDate();
+                user.setBirthDate(birthDate);
+                repository.saveOrUpdate(user);
+                System.out.println("!!! Your birth Date changed !!!");
+                break;
+            case "email":
+                String email = email(user.getEmail());
+                user.setEmail(email);
+                repository.saveOrUpdate(user);
+                System.out.println("!!! Your email changed !!!");
+                break;
+            case "phonenumber":
+                String phoneNumber = phoneNumber(user.getPhoneNumber());
+                user.setPhoneNumber(phoneNumber);
+                repository.saveOrUpdate(user);
+                System.out.println("!!! Your phone number changed !!!");
+                break;
+            default:
+                System.out.println("You should enter name of field like the what you see");
         }
     }
 }
