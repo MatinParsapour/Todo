@@ -97,7 +97,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         while (true) {
             try {
                 System.out.print("name : ");
-                name = new Scanner(System.in).next();
+                name = new Scanner(System.in).nextLine();
                 System.out.println("1.Acceptable            2.Unacceptable");
                 int setName = new Scanner(System.in).nextInt();
                 if (setName == 1) {
@@ -158,7 +158,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 if (choice == 1) {
                     break;
                 } else {
-                    System.out.println("Nowtry again");
+                    System.out.println("Now try again");
                 }
             } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
@@ -339,6 +339,12 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 repository.saveOrUpdate(user);
                 System.out.println("!!! Your username changed !!!");
                 break;
+            case "lastname":
+                String lastname = name();
+                user.setLastName(lastname);
+                repository.saveOrUpdate(user);
+                System.out.println("!!! Your lastname changed !!!");
+                break;
             case "password":
                 String password = password();
                 user.setPassword(password);
@@ -378,20 +384,32 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 case "password":
                     System.out.println("You can't delete this field");
                     break;
-                case "birthdate":
-                    user.getBirthDate().equals(null);
+                case "lastname":
+                    user.getLastName().equals(null);
                     System.out.println("Are you sure?");
                     System.out.println("1.Yes    2.No");
                     int choice = new Scanner(System.in).nextInt();
                     if (choice == 1) {
+                        user.setLastName(null);
+                        repository.saveOrUpdate(user);
+                        System.out.println("Your lastname is clear");
+                    } else {
+                        System.out.println("Nothing changed");
+                    }
+                    break;
+                case "birthdate":
+                    user.getBirthDate().equals(null);
+                    System.out.println("Are you sure?");
+                    System.out.println("1.Yes    2.No");
+                    choice = new Scanner(System.in).nextInt();
+                    if (choice == 1) {
                         user.setBirthDate(null);
                         repository.saveOrUpdate(user);
                         System.out.println("Your birthdate is clear");
-                        break;
                     } else {
                         System.out.println("Nothing changed");
-                        break;
                     }
+                    break;
                 case "email":
                     user.getEmail().equals(null);
                     System.out.println("Are you sure?");
@@ -401,11 +419,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                         user.setEmail(null);
                         repository.saveOrUpdate(user);
                         System.out.println("Your email is clear");
-                        break;
                     } else {
                         System.out.println("Nothing changed");
-                        break;
                     }
+                    break;
                 case "phonenumber":
                     user.getPhoneNumber().equals(null);
                     System.out.println("Are you sure?");
@@ -415,11 +432,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                         user.setPhoneNumber(null);
                         repository.saveOrUpdate(user);
                         System.out.println("Your phone number is clear");
-                        break;
                     } else {
                         System.out.println("Nothing changed");
-                        break;
                     }
+                    break;
             }
         } catch (NullPointerException exception) {
             System.out.println("This field already has nothing");
