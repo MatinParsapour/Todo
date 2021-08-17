@@ -173,7 +173,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         while (true) {
             try {
                 ApplicationContext.getDemonstrateInformation().demonstratUserInfo(user);
-                System.out.println("1.Change profile         2.Delete a field   2.Back to main menu");
+                System.out.println("1.Change profile         2.Delete a field         3.Back to main menu");
                 int choice = new Scanner(System.in).nextInt();
                 if (choice == 3) {
                     break;

@@ -64,9 +64,19 @@ public class DemonstrateInformation {
         System.out.format("| %" + (-(name+6)) + "s",user.getName());
         System.out.format("|%" + (-(username+15)) + "s",user.getUsername());
         System.out.format("|%" + (-(password+5)) + "s",user.getPassword());
-        System.out.format("|%" + (-(birthdate+5)) + "s",user.getBirthDate());
-        System.out.format("|%" + (-(email+5)) + "s",user.getEmail());
-        System.out.format("|%" + (-(phoneNumber+5)) + "s|",user.getPhoneNumber());
+        if(user.getBirthDate() == null){
+            System.out.format("|%" + (-(birthdate+5)) + "s","");
+        }else{
+            System.out.format("|%" + (-(birthdate+5)) + "s",user.getBirthDate());
+        }if(user.getEmail() == null){
+            System.out.format("|%" + (-(email+5)) + "s","");
+        }else{
+            System.out.format("|%" + (-(email+5)) + "s",user.getEmail());
+        }if(user.getPhoneNumber() == null){
+            System.out.format("|%" + (-(phoneNumber+5)) + "s|","");
+        }else{
+            System.out.format("|%" + (-(phoneNumber+5)) + "s|",user.getPhoneNumber());
+        }
 
         System.out.print("\n+");
         for(int i = 0 ; i < dashLength ; i++){
