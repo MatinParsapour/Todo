@@ -5,6 +5,7 @@ import domain.User;
 import repository.UserRepository;
 import service.UserService;
 import util.ApplicationContext;
+import util.DemonstrateInformation;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -166,60 +167,57 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
 
     @Override
     public void profile(Long id) {
+        DemonstrateInformation demonstrateInformation = new DemonstrateInformation();
         User user = findById(id);
         while (true) {
             try {
-                System.out.println("Your profile");
-                System.out.println("1.Name : " + user.getName());
-                System.out.println("2.Username : " + user.getUsername());
-                System.out.println("3.Password : " + user.getPassword());
-                System.out.println("4.Birth Date : " + user.getBirthDate());
-                System.out.println("5.Email : " + user.getEmail());
-                System.out.println("6.Phone number : " + user.getPhoneNumber());
+                demonstrateInformation.demonstratUserInfo(user);
                 System.out.println("1.change profile            2.back to main menu");
                 int choice = new Scanner(System.in).nextInt();
                 if (choice == 2) {
                     break;
                 } else if (choice == 1) {
                     System.out.println("Which one?");
-                    int changeProfile = new Scanner(System.in).nextInt();
-                    switch (changeProfile) {
-                        case 1:
+                    String changeProfile = new Scanner(System.in).nextLine();
+                    switch (changeProfile.toLowerCase()) {
+                        case "name":
                             String name = name();
                             user.setName(name);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your name changed !!!");
                             break;
-                        case 2:
+                        case "username":
                             String username = username();
                             user.setUsername(username);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your username changed !!!");
                             break;
-                        case 3:
+                        case "password":
                             String password = password();
                             user.setPassword(password);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your password changed !!!");
                             break;
-                        case 4:
+                        case "birthdate":
                             LocalDate birthDate = birthDate();
                             user.setBirthDate(birthDate);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your birth Date changed !!!");
                             break;
-                        case 5:
+                        case "email":
                             String email = email(user.getEmail());
                             user.setEmail(email);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your email changed !!!");
                             break;
-                        case 6:
+                        case "phonenumber":
                             String phoneNumber = phoneNumber(user.getPhoneNumber());
                             user.setPhoneNumber(phoneNumber);
                             repository.saveOrUpdate(user);
                             System.out.println("!!! Your phone number changed !!!");
                             break;
+                        default:
+                            System.out.println("You should enter name of field like the what you see");
                     }
                 } else {
                     System.out.println("You should choose 1 or 2");
