@@ -13,13 +13,13 @@ public class DemonstrateInformation {
                 birthdate = 10;
         int email;
         if(user.getEmail() == null){
-            email = 15;
+            email = 4;
         }else{
             email = user.getEmail().length();
         }
         int phoneNumber;
         if(user.getPhoneNumber() == null){
-            phoneNumber = 15;
+            phoneNumber = 11;
         }else{
             phoneNumber = user.getPhoneNumber().length();
         }
