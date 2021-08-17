@@ -48,12 +48,14 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                         } else if (choice == 5) {
                             ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
                         } else if (choice == 6) {
-                            profile(userId);
+                            ApplicationContext.getTaskServiceImpl().removeUserTask(findById(userId));
                         } else if (choice == 7) {
+                            profile(userId);
+                        } else if (choice == 8) {
                             logOut(findById(userId));
                             exit = true;
                             break;
-                        } else if (choice == 8) {
+                        } else if (choice == 9) {
                             exit = true;
                             break;
                         }
@@ -368,8 +370,8 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
     private void deleteProfileFields(User user) {
         System.out.println("Which one?");
         String deleteProfile = new Scanner(System.in).next();
-        try{
-            switch (deleteProfile.toLowerCase()){
+        try {
+            switch (deleteProfile.toLowerCase()) {
                 case "name":
                 case "username":
                 case "password":
@@ -380,12 +382,12 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                     System.out.println("Are you sure?");
                     System.out.println("1.Yes    2.No");
                     int choice = new Scanner(System.in).nextInt();
-                    if(choice == 1){
+                    if (choice == 1) {
                         user.setBirthDate(null);
                         repository.saveOrUpdate(user);
                         System.out.println("Your birthdate is clear");
                         break;
-                    }else{
+                    } else {
                         System.out.println("Nothing changed");
                         break;
                     }
@@ -394,12 +396,12 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                     System.out.println("Are you sure?");
                     System.out.println("1.Yes    2.No");
                     choice = new Scanner(System.in).nextInt();
-                    if(choice == 1){
+                    if (choice == 1) {
                         user.setEmail(null);
                         repository.saveOrUpdate(user);
                         System.out.println("Your email is clear");
                         break;
-                    }else{
+                    } else {
                         System.out.println("Nothing changed");
                         break;
                     }
@@ -408,17 +410,17 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                     System.out.println("Are you sure?");
                     System.out.println("1.Yes    2.No");
                     choice = new Scanner(System.in).nextInt();
-                    if(choice == 1){
+                    if (choice == 1) {
                         user.setPhoneNumber(null);
                         repository.saveOrUpdate(user);
                         System.out.println("Your phone number is clear");
                         break;
-                    }else{
+                    } else {
                         System.out.println("Nothing changed");
                         break;
                     }
             }
-        }catch (NullPointerException exception){
+        } catch (NullPointerException exception) {
             System.out.println("This field already has nothing");
         }
     }

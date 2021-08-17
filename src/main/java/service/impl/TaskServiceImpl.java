@@ -23,6 +23,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         String content = content();
         Task task = new Task(title, content, new Date(), user);
         repository.saveOrUpdate(task);
+        System.out.println("This activity added");
     }
 
     private String title() {
@@ -253,6 +254,47 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         List<Task> tasks = repository.findUserActivities(user);
         for(Task task : tasks){
             delete(task);
+        }
+    }
+
+    @Override
+    public void removeUserTask(User user) {
+        List<Task> taskList = repository.findUserActivities(user);
+        if(taskList.size() != 0){
+            while(true){
+                try{
+                    ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(taskList);
+                    System.out.println("Do you want to delete a task");
+                    System.out.println("1.Yes                   2.No");
+                    int choice = new Scanner(System.in).nextInt();
+                    if(choice == 1){
+                        System.out.print("Enter title of task you want to delete : ");
+                        String title = new Scanner(System.in).nextLine();
+                        boolean titleIsOk = repository.checkTitle(title,user);
+                        if(titleIsOk){
+                            System.out.println("Final permission");
+                            System.out.println("1.Delete it           2.I regret");
+                            int finalChoice = new Scanner(System.in).nextInt();
+                            if(finalChoice == 1){
+                                Task task = repository.findActivity(title,user);
+                                ApplicationContext.getTaskServiceImpl().delete(task);
+                                System.out.println("This task deleted");
+                                break;
+                            }
+                        }else{
+                            System.out.println("This title doesn't belong to one of your tasks");
+                        }
+                    }else{
+                        System.out.println("Nothing deleted");
+                        break;
+                    }
+                }catch (InputMismatchException exception){
+                    System.out.println("You should enter number");
+                    System.out.println("Try again");
+                }
+            }
+        }else{
+            System.out.println("You don't have any task yet");
         }
     }
 }
