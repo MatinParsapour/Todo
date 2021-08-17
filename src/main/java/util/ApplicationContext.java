@@ -20,6 +20,8 @@ public class ApplicationContext {
 
     private static final Demonstration demonstration;
 
+    private static final DemonstrateInformation demonstrateInformation;
+
     private ApplicationContext() {
     }
 
@@ -30,6 +32,7 @@ public class ApplicationContext {
         taskRepository = new TaskRepositoryImpl(entityManager);
         taskServiceImpl = new TaskServiceImpl(taskRepository);
         demonstration = new Demonstration();
+        demonstrateInformation = new DemonstrateInformation();
     }
 
     public static UserServiceImpl getUserServiceImpl() {
@@ -43,4 +46,6 @@ public class ApplicationContext {
     public static TaskServiceImpl getTaskServiceImpl() {
         return taskServiceImpl;
     }
+
+    public static DemonstrateInformation getDemonstrateInformation(){return demonstrateInformation;}
 }

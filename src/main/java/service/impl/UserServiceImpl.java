@@ -167,11 +167,10 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
 
     @Override
     public void profile(Long id) {
-        DemonstrateInformation demonstrateInformation = new DemonstrateInformation();
         User user = findById(id);
         while (true) {
             try {
-                demonstrateInformation.demonstratUserInfo(user);
+                ApplicationContext.getDemonstrateInformation().demonstratUserInfo(user);
                 System.out.println("1.change profile            2.back to main menu");
                 int choice = new Scanner(System.in).nextInt();
                 if (choice == 2) {
