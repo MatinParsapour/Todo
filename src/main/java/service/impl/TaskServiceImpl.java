@@ -245,30 +245,12 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
             while (true) {
                 try {
                     ApplicationContext.getDemonstration().seeActivitiesMenu();
-                    int seeActivitiesBasedOn;
-                    while (true) {
-                        seeActivitiesBasedOn = new Scanner(System.in).nextInt();
-                        if (seeActivitiesBasedOn >= 1 && seeActivitiesBasedOn <= 4) {
-                            break;
-                        } else {
-                            System.out.println("You should choose between menu options");
-                            System.out.println("Try again");
-                        }
-                    }
+                    int seeActivitiesBasedOn = viewCategories();
                     if (seeActivitiesBasedOn == 4) {
                         break;
                     }
                     ApplicationContext.getDemonstration().howSeeActivities();
-                    int ascOrDesc;
-                    while (true) {
-                        ascOrDesc = new Scanner(System.in).nextInt();
-                        if (ascOrDesc == 1 || ascOrDesc == 2) {
-                            break;
-                        } else {
-                            System.out.println("You should choose between menu options");
-                            System.out.println("Try again");
-                        }
-                    }
+                    int ascOrDesc = ascOrDesc();
                     List<Task> tasks = repository.sortActivities(seeActivitiesBasedOn, ascOrDesc, user);
                     ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
                 } catch (InputMismatchException exception) {
@@ -279,6 +261,44 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         } else {
             System.out.println("You don't have any task yet");
         }
+    }
+
+    private int viewCategories(){
+        int seeActivitiesBasedOn;
+        while (true) {
+            try{
+                seeActivitiesBasedOn = new Scanner(System.in).nextInt();
+                if (seeActivitiesBasedOn >= 1 && seeActivitiesBasedOn <= 4) {
+                    break;
+                } else {
+                    System.out.println("You should choose between menu options");
+                    System.out.println("Try again");
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+        return seeActivitiesBasedOn;
+    }
+
+    private int ascOrDesc(){
+        int ascOrDesc;
+        while (true) {
+            try{
+                ascOrDesc = new Scanner(System.in).nextInt();
+                if (ascOrDesc == 1 || ascOrDesc == 2) {
+                    break;
+                } else {
+                    System.out.println("You should choose between menu options");
+                    System.out.println("Try again");
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+        return ascOrDesc;
     }
 
     @Override
