@@ -40,7 +40,9 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>, ID exte
 
     @Override
     public void delete(E e) {
+        entityManagaer.getTransaction().begin();
         entityManagaer.remove(e);
+        entityManagaer.getTransaction().commit();
     }
 
     @Override
