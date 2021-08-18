@@ -56,27 +56,32 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
 
     private void mainMenu(Long userId){
         while (true) {
-            ApplicationContext.getDemonstration().choicesMenu();
-            int choice = new Scanner(System.in).nextInt();
-            if (choice == 1) {
-                ApplicationContext.getTaskServiceImpl().seeActivities(findById(userId));
-            } else if (choice == 2) {
-                ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
-            } else if (choice == 3) {
-                ApplicationContext.getTaskServiceImpl().changeStatus(findById(userId));
-            } else if (choice == 4) {
-                ApplicationContext.getTaskServiceImpl().changeTitle(findById(userId));
-            } else if (choice == 5) {
-                ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
-            } else if (choice == 6) {
-                ApplicationContext.getTaskServiceImpl().removeUserTask(findById(userId));
-            } else if (choice == 7) {
-                profile(userId);
-            } else if (choice == 8) {
-                logOut(findById(userId));
-                break;
-            } else if (choice == 9) {
-                break;
+            try{
+                ApplicationContext.getDemonstration().choicesMenu();
+                int choice = new Scanner(System.in).nextInt();
+                if (choice == 1) {
+                    ApplicationContext.getTaskServiceImpl().seeActivities(findById(userId));
+                } else if (choice == 2) {
+                    ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
+                } else if (choice == 3) {
+                    ApplicationContext.getTaskServiceImpl().changeStatus(findById(userId));
+                } else if (choice == 4) {
+                    ApplicationContext.getTaskServiceImpl().changeTitle(findById(userId));
+                } else if (choice == 5) {
+                    ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
+                } else if (choice == 6) {
+                    ApplicationContext.getTaskServiceImpl().removeUserTask(findById(userId));
+                } else if (choice == 7) {
+                    profile(userId);
+                } else if (choice == 8) {
+                    logOut(findById(userId));
+                    break;
+                } else if (choice == 9) {
+                    break;
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
             }
         }
     }
