@@ -118,7 +118,7 @@ public class DemonstrateInformation {
                 descriptionSize = task.getDescription().length();
             }
         }
-        int dashLength = statusSize + createDateSize + lastUpdateSize + descriptionSize + titleSize + contentSize + 36;
+        int dashLength = statusSize + createDateSize + lastUpdateSize + descriptionSize + titleSize + contentSize + 41;
 
         printTaskHeader(dashLength, titleSize, contentSize, lastUpdateSize, descriptionSize, statusSize, createDateSize);
 
@@ -137,7 +137,7 @@ public class DemonstrateInformation {
         System.out.println("+");
 
         System.out.format("| %" + (-(titleSize + 5)) + "s", "title");
-        System.out.format("|%" + (-(contentSize + 5)) + "s", "content");
+        System.out.format("|%" + (-(contentSize + 10)) + "s", "content");
         System.out.format("|%" + (-(statusSize + 5)) + "s", "status");
         System.out.format("|%" + (-(dateSize + 5)) + "s", "create date");
         System.out.format("|%" + (-(lastUpdateSize + 5)) + "s", "last update");
@@ -156,7 +156,7 @@ public class DemonstrateInformation {
                                int dateSize, int dashLength) {
         for (Task task : tasks) {
             System.out.format("| %" + (-(titleSize + 5)) + "s", task.getTitle());
-            System.out.format("|%" + (-(contentSize + 5)) + "s", task.getContent());
+            System.out.format("|%" + (-(contentSize + 10)) + "s", task.getContent());
             System.out.format("|%" + (-(statusSize + 5)) + "s", task.getStatus());
             System.out.format("|%" + (-(dateSize + 5)) + "s", task.getCreationDate());
             System.out.format("|%" + (-(lastUpdateSize + 5)) + "s", task.getLastUpdate());

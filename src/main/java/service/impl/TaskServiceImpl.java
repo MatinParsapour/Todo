@@ -345,28 +345,32 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
 
     @Override
     public void removeCompletedTasks(User user) {
-        while(true){
-            try{
-                List<Task> taskList = repository.findUserActivities(user);
-                ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(taskList);
-                System.out.println("Are you sure?");
-                System.out.println("1.Yes    2.No");
-                int choice = new Scanner(System.in).nextInt();
-                if(choice == 1){
-                    for(Task task : taskList){
-                        if(task.getStatus().equals("completed")){
-                            delete(task);
+        List<Task> taskList = repository.findUserActivities(user);
+        if(taskList.size() != 0){
+            while(true){
+                try{
+                    ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(taskList);
+                    System.out.println("Are you sure?");
+                    System.out.println("1.Yes    2.No");
+                    int choice = new Scanner(System.in).nextInt();
+                    if(choice == 1){
+                        for(Task task : taskList){
+                            if(task.getStatus().equals("completed")){
+                                delete(task);
+                            }
                         }
+                        break;
+                    }else{
+                        System.out.println("Nothing deleted");
+                        break;
                     }
-                    break;
-                }else{
-                    System.out.println("Nothing deleted");
-                    break;
+                }catch (InputMismatchException exception){
+                    System.out.println("You should enter number");
+                    System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
-                System.out.println("You should enter number");
-                System.out.println("Try again");
             }
+        }else{
+            System.out.println("You don't have any task yet");
         }
     }
 
