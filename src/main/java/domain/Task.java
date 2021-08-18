@@ -19,16 +19,22 @@ public class Task extends BaseEntity<Long> {
 
     private String status = "open";
 
+    private Date lastUpdate;
+
+    private String description;
+
     @ManyToOne
     private User user;
 
     public Task(){}
 
-    public Task(String title, String content, Date creationDate, User user){
+    public Task(String title, String content, Date creationDate, User user, Date lastUpdate, String description){
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
         this.user = user;
+        this.lastUpdate = lastUpdate;
+        this.description = description;
     }
 
     public String getTitle() {
@@ -69,5 +75,21 @@ public class Task extends BaseEntity<Long> {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

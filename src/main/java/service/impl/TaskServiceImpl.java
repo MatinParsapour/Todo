@@ -21,7 +21,8 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     public void addActivity(User user) {
         String title = title();
         String content = content();
-        Task task = new Task(title, content, new Date(), user);
+        String description = "create task with title " + title;
+        Task task = new Task(title, content, new Date(), user,new Date(),description);
         repository.saveOrUpdate(task);
         System.out.println("This activity added");
     }
