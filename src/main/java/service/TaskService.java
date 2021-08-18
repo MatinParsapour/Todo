@@ -19,4 +19,6 @@ public interface TaskService extends BaseEntityService<Task, Long> {
     void removeUserTasks(User user);
 
     void removeUserTask(User user);
+
+    void removeCompletedTasks(User user);
 }

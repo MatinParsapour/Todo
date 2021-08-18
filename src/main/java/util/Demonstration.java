@@ -16,10 +16,11 @@ public class Demonstration {
         System.out.println("|    3.change the status    |");
         System.out.println("|  4.change activity title  |");
         System.out.println("| 5.change activity content |");
-        System.out.println("|    6.delete an activity   |");
-        System.out.println("|     7.Your profile        |");
-        System.out.println("|        8.log out          |");
-        System.out.println("|    9.back to main menu    |");
+        System.out.println("|  6.delete completed task  |");
+        System.out.println("|    7.delete an activity   |");
+        System.out.println("|     8.Your profile        |");
+        System.out.println("|        9.log out          |");
+        System.out.println("|   10.back to main menu    |");
         System.out.println("+---------------------------+");
     }
 

@@ -343,6 +343,33 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         }
     }
 
+    @Override
+    public void removeCompletedTasks(User user) {
+        while(true){
+            try{
+                List<Task> taskList = repository.findUserActivities(user);
+                ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(taskList);
+                System.out.println("Are you sure?");
+                System.out.println("1.Yes    2.No");
+                int choice = new Scanner(System.in).nextInt();
+                if(choice == 1){
+                    for(Task task : taskList){
+                        if(task.getStatus().equals("completed")){
+                            delete(task);
+                        }
+                    }
+                    break;
+                }else{
+                    System.out.println("Nothing deleted");
+                    break;
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+    }
+
     private void finalDelete(String title, User user){
         System.out.println("Final permission");
         System.out.println("1.Delete it           2.I regret");
