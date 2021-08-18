@@ -6,7 +6,7 @@ import domain.User;
 import java.util.List;
 
 public class DemonstrateInformation {
-    public void demonstratUserInfo(User user) {
+    public void demonstrateUserInfo(User user) {
         int firstName = user.getFirstName().length(),
                 username = user.getUsername().length(),
                 password = user.getPassword().length(),
