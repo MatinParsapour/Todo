@@ -181,12 +181,12 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 ApplicationContext.getDemonstrateInformation().demonstrateUserInfo(user);
                 System.out.println("1.Change profile         2.Delete a field         3.Back to main menu");
                 int choice = new Scanner(System.in).nextInt();
-                if (choice == 3) {
-                    break;
-                } else if (choice == 1) {
+                if (choice == 1) {
                     changeProfileFields(user);
                 } else if (choice == 2) {
                     deleteProfileFields(user);
+                } else if (choice == 3) {
+                    break;
                 } else {
                     System.out.println("You should choose 1 or 2");
                     System.out.println("Try again");
@@ -213,27 +213,14 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         }
     }
 
-
     private LocalDate birthDate() {
         LocalDate date;
         while (true) {
             try {
                 System.out.print("Year : ");
                 int year = new Scanner(System.in).nextInt();
-                System.out.print("Month : ");
-                int month = new Scanner(System.in).nextInt();
-                while (month < 1 || month > 12) {
-                    System.out.println("This is not a valid number for month");
-                    System.out.println("Try again");
-                    month = new Scanner(System.in).nextInt();
-                }
-                System.out.print("Day : ");
-                int day = new Scanner(System.in).nextInt();
-                while (day < 1 || day > 31) {
-                    System.out.println("This is not a valid number for day");
-                    System.out.println("Try again");
-                    day = new Scanner(System.in).nextInt();
-                }
+                int month = month();
+                int day = day();
                 date = LocalDate.of(year, month, day);
                 if (LocalDate.now().isAfter(date)) {
                     break;
@@ -249,8 +236,43 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         return date;
     }
 
+    private int month(){
+        while(true){
+            try{
+                System.out.print("Month : ");
+                int month = new Scanner(System.in).nextInt();
+                while (month < 1 || month > 12) {
+                    System.out.println("This is not a valid number for month");
+                    System.out.println("Try again");
+                    month = new Scanner(System.in).nextInt();
+                }
+                return month;
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+    }
+
+    private int day(){
+        while(true){
+            try{
+                System.out.print("Day : ");
+                int day = new Scanner(System.in).nextInt();
+                while (day < 1 || day > 31) {
+                    System.out.println("This is not a valid number for day");
+                    System.out.println("Try again");
+                    day = new Scanner(System.in).nextInt();
+                }
+                return day;
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
+            }
+        }
+    }
+
     private String email(String previousEmail) throws InterruptedException {
-        Random random = new Random();
         Pattern validEmail = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[\\a-zA-Z]{2,6}");
         System.out.print("Email : ");
         String email = new Scanner(System.in).next();
@@ -261,39 +283,48 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             email = new Scanner(System.in).next();
             machEmail = validEmail.matcher(email);
         }
+        return validationEmail(email,previousEmail);
+    }
+
+    private String validationEmail(String email, String previousEmail) throws InterruptedException {
         while (true) {
-            int validationCode = random.nextInt(1000000);
-            System.out.println("Please wait, we are sending a validation code to " + email);
-            for (int waiting = 0; waiting <= 10; waiting++) {
-                Thread.sleep(1000);
-                System.out.print("" + "🟩");
-            }
-            System.out.println();
-            System.out.println("This is your validation code : " + validationCode);
-            System.out.print("Write your validation code : ");
-            int validate = new Scanner(System.in).nextInt();
-            if (validate == validationCode) {
-                System.out.print("Please wait, we are syncing data");
-                for (int delay = 0; delay <= 10; delay++) {
+            try{
+                Random random = new Random();
+                int validationCode = random.nextInt(1000000);
+                System.out.println("Please wait, we are sending a validation code to " + email);
+                for (int waiting = 0; waiting <= 5; waiting++) {
                     Thread.sleep(1000);
-                    System.out.print(" .");
+                    System.out.print("" + "🟩");
                 }
-                System.out.println("Now you are good to go");
-                System.out.println("\nYour email is valid");
-                return email;
-            } else {
-                System.out.println("Invalid code");
-                System.out.println("1.Send another code       2.back to main menu");
-                int choice = new Scanner(System.in).nextInt();
-                if (choice == 2) {
-                    return previousEmail;
+                System.out.println();
+                System.out.println("This is your validation code : " + validationCode);
+                System.out.print("Write your validation code : ");
+                int validate = new Scanner(System.in).nextInt();
+                if (validate == validationCode) {
+                    System.out.print("Please wait, we are syncing data");
+                    for (int delay = 0; delay <= 5; delay++) {
+                        Thread.sleep(1000);
+                        System.out.print(" .");
+                    }
+                    System.out.println("Now you are good to go");
+                    System.out.println("\nYour email is valid");
+                    return email;
+                } else {
+                    System.out.println("Invalid code");
+                    System.out.println("1.Send another code       2.back to main menu");
+                    int choice = new Scanner(System.in).nextInt();
+                    if (choice == 2) {
+                        return previousEmail;
+                    }
                 }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
             }
         }
     }
 
     private String phoneNumber(String number) throws InterruptedException {
-        Random random = new Random();
         Pattern validPhoneNumber = Pattern.compile("[0][9][0-9]{9}");
         System.out.println("Enter your full phone number");
         String phoneNumber = new Scanner(System.in).next();
@@ -304,26 +335,36 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             phoneNumber = new Scanner(System.in).next();
             matchPhoneNumber = validPhoneNumber.matcher(phoneNumber);
         }
+        return validationPhoneNumber(phoneNumber,number);
+    }
+
+    private String validationPhoneNumber(String phoneNumber, String number) throws InterruptedException {
         while (true) {
-            int validationCode = random.nextInt(1000000);
-            System.out.println("Please wait, we are sending a validation code to " + phoneNumber);
-            for (int waiting = 0; waiting <= 10; waiting++) {
-                Thread.sleep(1000);
-                System.out.print("" + "🟩");
-            }
-            System.out.println("\nThis is your validation code : " + validationCode);
-            System.out.print("Write your validation code : ");
-            int validate = new Scanner(System.in).nextInt();
-            if (validate == validationCode) {
-                System.out.println("Your phone is valid");
-                return phoneNumber;
-            } else {
-                System.out.println("Invalid code");
-                System.out.println("1.Send another code       2.back to main menu");
-                int choice = new Scanner(System.in).nextInt();
-                if (choice == 2) {
-                    return number;
+            try{
+                Random random = new Random();
+                int validationCode = random.nextInt(1000000);
+                System.out.println("Please wait, we are sending a validation code to " + phoneNumber);
+                for (int waiting = 0; waiting <= 10; waiting++) {
+                    Thread.sleep(1000);
+                    System.out.print("" + "🟩");
                 }
+                System.out.println("\nThis is your validation code : " + validationCode);
+                System.out.print("Write your validation code : ");
+                int validate = new Scanner(System.in).nextInt();
+                if (validate == validationCode) {
+                    System.out.println("Your phone is valid");
+                    return phoneNumber;
+                } else {
+                    System.out.println("Invalid code");
+                    System.out.println("1.Send another code       2.back to main menu");
+                    int choice = new Scanner(System.in).nextInt();
+                    if (choice == 2) {
+                        return number;
+                    }
+                }
+            }catch (InputMismatchException exception){
+                System.out.println("You should enter number");
+                System.out.println("Try again");
             }
         }
     }
@@ -446,4 +487,6 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
             System.out.println("This field already has nothing");
         }
     }
+
+
 }
