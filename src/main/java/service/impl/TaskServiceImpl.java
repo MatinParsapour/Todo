@@ -82,6 +82,8 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                             System.out.print("New title : ");
                             String newTitle = new Scanner(System.in).nextLine();
                             task.setTitle(newTitle);
+                            task.setLastUpdate(new Date());
+                            task.setDescription("change title from " + title + " to " + newTitle);
                             repository.saveOrUpdate(task);
                         } else {
                             System.out.println("This title isn't belong to one of your activities");
