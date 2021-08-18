@@ -159,16 +159,23 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                         String title = new Scanner(System.in).nextLine();
                         if (repository.checkTitle(title, user)) {
                             Task task = repository.findActivity(title, user);
+                            String oldStatus = task.getStatus();
                             if (task.getStatus().equals("open")) {
                                 System.out.println("1.Completed            2.In progress");
                                 while (true) {
                                     int status = new Scanner(System.in).nextInt();
                                     if (status == 1) {
-                                        task.setStatus("completed");
+                                        String newStatus = "completed";
+                                        task.setStatus(newStatus);
+                                        task.setLastUpdate(new Date());
+                                        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
                                         repository.saveOrUpdate(task);
                                         break;
                                     } else if (status == 2) {
-                                        task.setStatus("In progress");
+                                        String newStatus = "In progress";
+                                        task.setStatus(newStatus);
+                                        task.setLastUpdate(new Date());
+                                        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
                                         repository.saveOrUpdate(task);
                                         break;
                                     } else {
@@ -182,8 +189,11 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                                 while (true) {
                                     int status = new Scanner(System.in).nextInt();
                                     if (status == 1) {
-                                        task.setStatus("completed");
+                                        String newStatus = "completed";
+                                        task.setStatus(newStatus);
                                         repository.saveOrUpdate(task);
+                                        task.setLastUpdate(new Date());
+                                        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
                                         break;
                                     } else {
                                         System.out.println("Status of your activity didn't change");
