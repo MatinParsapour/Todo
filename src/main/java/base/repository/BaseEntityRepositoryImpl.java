@@ -6,11 +6,11 @@ import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID extends Serializable> implements BaseEntityRepository<E,ID> {
+public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>, ID extends Serializable> implements BaseEntityRepository<E, ID> {
 
     protected final EntityManager entityManagaer;
 
-    public BaseEntityRepositoryImpl(EntityManager entityManager){
+    public BaseEntityRepositoryImpl(EntityManager entityManager) {
         this.entityManagaer = entityManager;
     }
 
@@ -19,9 +19,9 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID exten
     @Override
     public E saveOrUpdate(E e) {
         entityManagaer.getTransaction().begin();
-        if(e.getId() == null){
+        if (e.getId() == null) {
             entityManagaer.persist(e);
-        }else{
+        } else {
             entityManagaer.merge(e);
         }
         entityManagaer.getTransaction().commit();
@@ -30,12 +30,12 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID exten
 
     @Override
     public E findById(ID id) {
-        return entityManagaer.find(getEntity(),id);
+        return entityManagaer.find(getEntity(), id);
     }
 
     @Override
     public List<E> findAll() {
-        return entityManagaer.createQuery("FROM " + getEntity().getSimpleName(),getEntity()).getResultList();
+        return entityManagaer.createQuery("FROM " + getEntity().getSimpleName(), getEntity()).getResultList();
     }
 
     @Override
@@ -46,7 +46,7 @@ public abstract class BaseEntityRepositoryImpl<E extends BaseEntity<ID>,ID exten
     @Override
     public boolean exists(ID id) {
         return entityManagaer.createQuery("FROM " + getEntity().getSimpleName() +
-                " WHERE id = :id " ,Long.class).setParameter("id",id).getSingleResult() == 1;
+                " WHERE id = :id ", Long.class).setParameter("id", id).getSingleResult() == 1;
 
     }
 

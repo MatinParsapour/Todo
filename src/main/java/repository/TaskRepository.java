@@ -14,5 +14,5 @@ public interface TaskRepository extends BaseEntityRepository<Task, Long> {
 
     Task findActivity(String title, User user);
 
-    List<Task> sortActivities(int field, int how ,User user);
+    List<Task> sortActivities(int field, int how, User user);
 }

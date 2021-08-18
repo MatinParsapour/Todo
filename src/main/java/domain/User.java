@@ -24,10 +24,10 @@ public class User extends BaseEntity<Long> {
 
     private LocalDate birthDate = null;
 
-    public User(){
+    public User() {
     }
 
-    public User(String firstName, String username, String password){
+    public User(String firstName, String username, String password) {
         this.firstName = firstName;
         this.username = username;
         this.password = password;

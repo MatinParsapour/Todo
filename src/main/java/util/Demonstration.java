@@ -23,7 +23,7 @@ public class Demonstration {
         System.out.println("+---------------------------+");
     }
 
-    public void seeActivitiesMenu(){
+    public void seeActivitiesMenu() {
         System.out.println("+-----------------------+");
         System.out.println("|    1.Based on Status  |");
         System.out.println("|    2.Based on title   |");
@@ -32,7 +32,7 @@ public class Demonstration {
         System.out.println("+-----------------------+");
     }
 
-    public void howSeeActivities(){
+    public void howSeeActivities() {
         System.out.println("+---------------------+");
         System.out.println("|     1.Descending    |");
         System.out.println("|     2.Ascending     |");

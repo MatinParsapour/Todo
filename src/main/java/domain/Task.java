@@ -26,9 +26,10 @@ public class Task extends BaseEntity<Long> {
     @ManyToOne
     private User user;
 
-    public Task(){}
+    public Task() {
+    }
 
-    public Task(String title, String content, Date creationDate, User user, Date lastUpdate, String description){
+    public Task(String title, String content, Date creationDate, User user, Date lastUpdate, String description) {
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;

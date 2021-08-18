@@ -22,7 +22,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         String title = title();
         String content = content();
         String description = "create task with title " + title;
-        Task task = new Task(title, content, new Date(), user,new Date(),description);
+        Task task = new Task(title, content, new Date(), user, new Date(), description);
         repository.saveOrUpdate(task);
         System.out.println("This activity added");
     }
@@ -68,7 +68,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     @Override
     public void changeTitle(User user) {
         List<Task> tasks = repository.findUserActivities(user);
-        if(tasks.size() != 0){
+        if (tasks.size() != 0) {
             while (true) {
                 ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
                 try {
@@ -100,7 +100,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("Start over");
                 }
             }
-        }else{
+        } else {
             System.out.println("You don't have any task yet");
         }
     }
@@ -108,7 +108,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     @Override
     public void changeContent(User user) {
         List<Task> tasks = repository.findUserActivities(user);
-        if(tasks.size() != 0){
+        if (tasks.size() != 0) {
             while (true) {
                 ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
                 try {
@@ -140,7 +140,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("Start over");
                 }
             }
-        }else {
+        } else {
             System.out.println("You don't have any task yet");
         }
     }
@@ -148,7 +148,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     @Override
     public void changeStatus(User user) {
         List<Task> tasks = repository.findUserActivities(user);
-        if(tasks.size() != 0){
+        if (tasks.size() != 0) {
             while (true) {
                 ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
                 try {
@@ -194,11 +194,10 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                                         repository.saveOrUpdate(task);
                                         task.setLastUpdate(new Date());
                                         task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
-                                        break;
                                     } else {
                                         System.out.println("Status of your activity didn't change");
-                                        break;
                                     }
+                                    break;
                                 }
                             }
                         } else {
@@ -216,7 +215,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("Start over");
                 }
             }
-        }else{
+        } else {
             System.out.println("You don't have any task yet");
         }
     }
@@ -224,42 +223,42 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     @Override
     public void seeActivities(User user) {
         List<Task> taskList = repository.findUserActivities(user);
-        if(taskList.size() != 0){
-            while(true){
-                try{
+        if (taskList.size() != 0) {
+            while (true) {
+                try {
                     ApplicationContext.getDemonstration().seeActivitiesMenu();
                     int seeActivitiesBasedOn;
-                    while(true){
+                    while (true) {
                         seeActivitiesBasedOn = new Scanner(System.in).nextInt();
-                        if(seeActivitiesBasedOn >=1 && seeActivitiesBasedOn <= 4){
+                        if (seeActivitiesBasedOn >= 1 && seeActivitiesBasedOn <= 4) {
                             break;
-                        }else{
+                        } else {
                             System.out.println("You should choose between menu options");
                             System.out.println("Try again");
                         }
                     }
-                    if(seeActivitiesBasedOn == 4){
+                    if (seeActivitiesBasedOn == 4) {
                         break;
                     }
                     ApplicationContext.getDemonstration().howSeeActivities();
                     int ascOrDesc;
-                    while(true){
+                    while (true) {
                         ascOrDesc = new Scanner(System.in).nextInt();
-                        if(ascOrDesc == 1 || ascOrDesc == 2){
+                        if (ascOrDesc == 1 || ascOrDesc == 2) {
                             break;
-                        }else{
+                        } else {
                             System.out.println("You should choose between menu options");
                             System.out.println("Try again");
                         }
                     }
-                    List<Task> tasks = repository.sortActivities(seeActivitiesBasedOn,ascOrDesc,user);
+                    List<Task> tasks = repository.sortActivities(seeActivitiesBasedOn, ascOrDesc, user);
                     ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
-                }catch (InputMismatchException exception){
+                } catch (InputMismatchException exception) {
                     System.out.println("You should enter number");
                     System.out.println("Try again");
                 }
             }
-        }else{
+        } else {
             System.out.println("You don't have any task yet");
         }
     }
@@ -267,7 +266,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     @Override
     public void removeUserTasks(User user) {
         List<Task> tasks = repository.findUserActivities(user);
-        for(Task task : tasks){
+        for (Task task : tasks) {
             delete(task);
         }
     }
@@ -275,40 +274,40 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     @Override
     public void removeUserTask(User user) {
         List<Task> taskList = repository.findUserActivities(user);
-        if(taskList.size() != 0){
-            while(true){
-                try{
+        if (taskList.size() != 0) {
+            while (true) {
+                try {
                     ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(taskList);
                     System.out.println("Do you want to delete a task");
                     System.out.println("1.Yes                   2.No");
                     int choice = new Scanner(System.in).nextInt();
-                    if(choice == 1){
+                    if (choice == 1) {
                         System.out.print("Enter title of task you want to delete : ");
                         String title = new Scanner(System.in).nextLine();
-                        boolean titleIsOk = repository.checkTitle(title,user);
-                        if(titleIsOk){
+                        boolean titleIsOk = repository.checkTitle(title, user);
+                        if (titleIsOk) {
                             System.out.println("Final permission");
                             System.out.println("1.Delete it           2.I regret");
                             int finalChoice = new Scanner(System.in).nextInt();
-                            if(finalChoice == 1){
-                                Task task = repository.findActivity(title,user);
+                            if (finalChoice == 1) {
+                                Task task = repository.findActivity(title, user);
                                 ApplicationContext.getTaskServiceImpl().delete(task);
                                 System.out.println("This task deleted");
                                 break;
                             }
-                        }else{
+                        } else {
                             System.out.println("This title doesn't belong to one of your tasks");
                         }
-                    }else{
+                    } else {
                         System.out.println("Nothing deleted");
                         break;
                     }
-                }catch (InputMismatchException exception){
+                } catch (InputMismatchException exception) {
                     System.out.println("You should enter number");
                     System.out.println("Try again");
                 }
             }
-        }else{
+        } else {
             System.out.println("You don't have any task yet");
         }
     }

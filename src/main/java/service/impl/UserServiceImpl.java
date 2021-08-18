@@ -54,9 +54,9 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
         }
     }
 
-    private void mainMenu(Long userId){
+    private void mainMenu(Long userId) {
         while (true) {
-            try{
+            try {
                 ApplicationContext.getDemonstration().choicesMenu();
                 int choice = new Scanner(System.in).nextInt();
                 if (choice == 1) {
@@ -79,7 +79,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 } else if (choice == 9) {
                     break;
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Try again");
             }

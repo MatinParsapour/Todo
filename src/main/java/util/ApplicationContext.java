@@ -47,5 +47,7 @@ public class ApplicationContext {
         return taskServiceImpl;
     }
 
-    public static DemonstrateInformation getDemonstrateInformation(){return demonstrateInformation;}
+    public static DemonstrateInformation getDemonstrateInformation() {
+        return demonstrateInformation;
+    }
 }
