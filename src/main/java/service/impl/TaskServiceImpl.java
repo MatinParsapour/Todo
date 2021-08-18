@@ -75,20 +75,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("1.Change title          2.Back to main menu");
                     int choice = new Scanner(System.in).nextInt();
                     if (choice == 1) {
-                        System.out.print("Enter the title of activity you want to change title : ");
-                        String title = new Scanner(System.in).nextLine();
-                        if (repository.checkTitle(title, user)) {
-                            Task task = repository.findActivity(title, user);
-                            System.out.print("New title : ");
-                            String newTitle = new Scanner(System.in).nextLine();
-                            task.setTitle(newTitle);
-                            task.setLastUpdate(new Date());
-                            task.setDescription("change title from " + title + " to " + newTitle);
-                            repository.saveOrUpdate(task);
-                        } else {
-                            System.out.println("This title isn't belong to one of your activities");
-                            System.out.println("Try again");
-                        }
+                        setTitle(user);
                     } else if (choice == 2) {
                         break;
                     } else {
@@ -105,6 +92,23 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         }
     }
 
+    private void setTitle(User user){
+        System.out.print("Enter the title of activity you want to change title : ");
+        String title = new Scanner(System.in).nextLine();
+        if (repository.checkTitle(title, user)) {
+            Task task = repository.findActivity(title, user);
+            System.out.print("New title : ");
+            String newTitle = new Scanner(System.in).nextLine();
+            task.setTitle(newTitle);
+            task.setLastUpdate(new Date());
+            task.setDescription("change title from " + title + " to " + newTitle);
+            repository.saveOrUpdate(task);
+        } else {
+            System.out.println("This title isn't belong to one of your activities");
+            System.out.println("Try again");
+        }
+    }
+
     @Override
     public void changeContent(User user) {
         List<Task> tasks = repository.findUserActivities(user);
@@ -115,20 +119,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("1.Change content              2.Back to main menu");
                     int choice = new Scanner(System.in).nextInt();
                     if (choice == 1) {
-                        System.out.print("Enter title of activity you want to change content : ");
-                        String title = new Scanner(System.in).nextLine();
-                        if (repository.checkTitle(title, user)) {
-                            Task task = repository.findActivity(title, user);
-                            System.out.print("New content : ");
-                            String newContent = new Scanner(System.in).nextLine();
-                            task.setContent(newContent);
-                            task.setLastUpdate(new Date());
-                            task.setDescription("change content of activity with title " + title);
-                            repository.saveOrUpdate(task);
-                        } else {
-                            System.out.println("This title isn't belong to one of your activities");
-                            System.out.println("Try again");
-                        }
+                        setContent(user);
                     } else if (choice == 2) {
                         break;
                     } else {
@@ -145,6 +136,23 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         }
     }
 
+    private void setContent(User user){
+        System.out.print("Enter title of activity you want to change content : ");
+        String title = new Scanner(System.in).nextLine();
+        if (repository.checkTitle(title, user)) {
+            Task task = repository.findActivity(title, user);
+            System.out.print("New content : ");
+            String newContent = new Scanner(System.in).nextLine();
+            task.setContent(newContent);
+            task.setLastUpdate(new Date());
+            task.setDescription("change content of activity with title " + title);
+            repository.saveOrUpdate(task);
+        } else {
+            System.out.println("This title isn't belong to one of your activities");
+            System.out.println("Try again");
+        }
+    }
+
     @Override
     public void changeStatus(User user) {
         List<Task> tasks = repository.findUserActivities(user);
@@ -155,55 +163,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("1.Change status            2.Back to main menu");
                     int choice = new Scanner(System.in).nextInt();
                     if (choice == 1) {
-                        System.out.println("Enter title of activity you want to change status : ");
-                        String title = new Scanner(System.in).nextLine();
-                        if (repository.checkTitle(title, user)) {
-                            Task task = repository.findActivity(title, user);
-                            String oldStatus = task.getStatus();
-                            if (task.getStatus().equals("open")) {
-                                System.out.println("1.Completed            2.In progress");
-                                while (true) {
-                                    int status = new Scanner(System.in).nextInt();
-                                    if (status == 1) {
-                                        String newStatus = "completed";
-                                        task.setStatus(newStatus);
-                                        task.setLastUpdate(new Date());
-                                        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
-                                        repository.saveOrUpdate(task);
-                                        break;
-                                    } else if (status == 2) {
-                                        String newStatus = "In progress";
-                                        task.setStatus(newStatus);
-                                        task.setLastUpdate(new Date());
-                                        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
-                                        repository.saveOrUpdate(task);
-                                        break;
-                                    } else {
-                                        System.out.println("You should choose 1 or 2");
-                                        System.out.println("Try again");
-                                    }
-                                }
-                            } else {
-                                System.out.println("Is this task completed?");
-                                System.out.println("1.Yes              2.No");
-                                while (true) {
-                                    int status = new Scanner(System.in).nextInt();
-                                    if (status == 1) {
-                                        String newStatus = "completed";
-                                        task.setStatus(newStatus);
-                                        repository.saveOrUpdate(task);
-                                        task.setLastUpdate(new Date());
-                                        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
-                                    } else {
-                                        System.out.println("Status of your activity didn't change");
-                                    }
-                                    break;
-                                }
-                            }
-                        } else {
-                            System.out.println("This title isn't belong to one of your activities");
-                            System.out.println("Try again");
-                        }
+                        setStatus(user);
                     } else if (choice == 2) {
                         break;
                     } else {
@@ -218,6 +178,64 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         } else {
             System.out.println("You don't have any task yet");
         }
+    }
+
+    private void setStatus(User user){
+        System.out.println("Enter title of activity you want to change status : ");
+        String title = new Scanner(System.in).nextLine();
+        if (repository.checkTitle(title, user)) {
+            Task task = repository.findActivity(title, user);
+            String oldStatus = task.getStatus();
+            if (task.getStatus().equals("open")) {
+                System.out.println("1.Completed            2.In progress");
+                while (true) {
+                    int status = new Scanner(System.in).nextInt();
+                    if (status == 1) {
+                        makeActivityCompleted(task,title,oldStatus);
+                        break;
+                    } else if (status == 2) {
+                        makeActivityInProgress(task,title,oldStatus);
+                        break;
+                    } else {
+                        System.out.println("You should choose 1 or 2");
+                        System.out.println("Try again");
+                    }
+                }
+            } else if (task.getStatus().equals("In progress")){
+                System.out.println("Is this task completed?");
+                System.out.println("1.Yes              2.No");
+                while (true) {
+                    int status = new Scanner(System.in).nextInt();
+                    if (status == 1) {
+                        makeActivityCompleted(task,title,oldStatus);
+                    } else {
+                        System.out.println("Status of your activity didn't change");
+                    }
+                    break;
+                }
+            }else{
+                System.out.println("This activity is completed");
+            }
+        } else {
+            System.out.println("This title isn't belong to one of your activities");
+            System.out.println("Try again");
+        }
+    }
+
+    private void makeActivityInProgress(Task task, String title, String oldStatus){
+        String newStatus = "In progress";
+        task.setStatus(newStatus);
+        task.setLastUpdate(new Date());
+        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
+        repository.saveOrUpdate(task);
+    }
+
+    private void makeActivityCompleted(Task task, String title , String oldStatus){
+        String newStatus = "completed";
+        task.setStatus(newStatus);
+        task.setLastUpdate(new Date());
+        task.setDescription("change status of activity with title " + title + " from " + oldStatus + " to " + newStatus);
+        repository.saveOrUpdate(task);
     }
 
     @Override
@@ -286,15 +304,8 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                         String title = new Scanner(System.in).nextLine();
                         boolean titleIsOk = repository.checkTitle(title, user);
                         if (titleIsOk) {
-                            System.out.println("Final permission");
-                            System.out.println("1.Delete it           2.I regret");
-                            int finalChoice = new Scanner(System.in).nextInt();
-                            if (finalChoice == 1) {
-                                Task task = repository.findActivity(title, user);
-                                ApplicationContext.getTaskServiceImpl().delete(task);
-                                System.out.println("This task deleted");
-                                break;
-                            }
+                            finalDelete(title,user);
+                            break;
                         } else {
                             System.out.println("This title doesn't belong to one of your tasks");
                         }
@@ -309,6 +320,17 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
             }
         } else {
             System.out.println("You don't have any task yet");
+        }
+    }
+
+    private void finalDelete(String title, User user){
+        System.out.println("Final permission");
+        System.out.println("1.Delete it           2.I regret");
+        int finalChoice = new Scanner(System.in).nextInt();
+        if (finalChoice == 1) {
+            Task task = repository.findActivity(title, user);
+            ApplicationContext.getTaskServiceImpl().delete(task);
+            System.out.println("This task deleted");
         }
     }
 }

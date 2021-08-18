@@ -344,7 +344,7 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 Random random = new Random();
                 int validationCode = random.nextInt(1000000);
                 System.out.println("Please wait, we are sending a validation code to " + phoneNumber);
-                for (int waiting = 0; waiting <= 10; waiting++) {
+                for (int waiting = 0; waiting <= 5; waiting++) {
                     Thread.sleep(1000);
                     System.out.print("" + "🟩");
                 }
