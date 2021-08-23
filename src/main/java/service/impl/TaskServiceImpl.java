@@ -67,32 +67,6 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
 
     @Override
     public void changeTitle(User user) {
-        List<Task> tasks = repository.findUserActivities(user);
-        if (tasks.size() != 0) {
-            while (true) {
-                ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
-                try {
-                    System.out.println("1.Change title          2.Back to main menu");
-                    int choice = new Scanner(System.in).nextInt();
-                    if (choice == 1) {
-                        setTitle(user);
-                    } else if (choice == 2) {
-                        break;
-                    } else {
-                        System.out.println("you should choose 1 or 2");
-                        System.out.println("Try again");
-                    }
-                } catch (InputMismatchException exception) {
-                    System.out.println("You should enter number");
-                    System.out.println("Start over");
-                }
-            }
-        } else {
-            System.out.println("You don't have any task yet");
-        }
-    }
-
-    private void setTitle(User user){
         System.out.print("Enter the title of activity you want to change title : ");
         String title = new Scanner(System.in).nextLine();
         if (repository.checkTitle(title, user)) {
@@ -111,32 +85,6 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
 
     @Override
     public void changeContent(User user) {
-        List<Task> tasks = repository.findUserActivities(user);
-        if (tasks.size() != 0) {
-            while (true) {
-                ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
-                try {
-                    System.out.println("1.Change content              2.Back to main menu");
-                    int choice = new Scanner(System.in).nextInt();
-                    if (choice == 1) {
-                        setContent(user);
-                    } else if (choice == 2) {
-                        break;
-                    } else {
-                        System.out.println("You should choose 1 or 2");
-                        System.out.println("Try again");
-                    }
-                } catch (InputMismatchException exception) {
-                    System.out.println("You should enter number");
-                    System.out.println("Start over");
-                }
-            }
-        } else {
-            System.out.println("You don't have any task yet");
-        }
-    }
-
-    private void setContent(User user){
         System.out.print("Enter title of activity you want to change content : ");
         String title = new Scanner(System.in).nextLine();
         if (repository.checkTitle(title, user)) {
@@ -155,32 +103,6 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
 
     @Override
     public void changeStatus(User user) {
-        List<Task> tasks = repository.findUserActivities(user);
-        if (tasks.size() != 0) {
-            while (true) {
-                ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
-                try {
-                    System.out.println("1.Change status            2.Back to main menu");
-                    int choice = new Scanner(System.in).nextInt();
-                    if (choice == 1) {
-                        setStatus(user);
-                    } else if (choice == 2) {
-                        break;
-                    } else {
-                        System.out.println("You should choose 1 or 2");
-                        System.out.println("Try again");
-                    }
-                } catch (InputMismatchException exception) {
-                    System.out.println("You should enter number");
-                    System.out.println("Start over");
-                }
-            }
-        } else {
-            System.out.println("You don't have any task yet");
-        }
-    }
-
-    private void setStatus(User user){
         System.out.println("Enter title of activity you want to change status : ");
         String title = new Scanner(System.in).nextLine();
         if (repository.checkTitle(title, user)) {
@@ -191,29 +113,29 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                 while (true) {
                     int status = new Scanner(System.in).nextInt();
                     if (status == 1) {
-                        makeActivityCompleted(task,title,oldStatus);
+                        makeActivityCompleted(task, title, oldStatus);
                         break;
                     } else if (status == 2) {
-                        makeActivityInProgress(task,title,oldStatus);
+                        makeActivityInProgress(task, title, oldStatus);
                         break;
                     } else {
                         System.out.println("You should choose 1 or 2");
                         System.out.println("Try again");
                     }
                 }
-            } else if (task.getStatus().equals("In progress")){
+            } else if (task.getStatus().equals("In progress")) {
                 System.out.println("Is this task completed?");
                 System.out.println("1.Yes              2.No");
                 while (true) {
                     int status = new Scanner(System.in).nextInt();
                     if (status == 1) {
-                        makeActivityCompleted(task,title,oldStatus);
+                        makeActivityCompleted(task, title, oldStatus);
                     } else {
                         System.out.println("Status of your activity didn't change");
                     }
                     break;
                 }
-            }else{
+            } else {
                 System.out.println("This activity is completed");
             }
         } else {
@@ -222,7 +144,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         }
     }
 
-    private void makeActivityInProgress(Task task, String title, String oldStatus){
+    private void makeActivityInProgress(Task task, String title, String oldStatus) {
         String newStatus = "In progress";
         task.setStatus(newStatus);
         task.setLastUpdate(new Date());
@@ -230,7 +152,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         repository.saveOrUpdate(task);
     }
 
-    private void makeActivityCompleted(Task task, String title , String oldStatus){
+    private void makeActivityCompleted(Task task, String title, String oldStatus) {
         String newStatus = "completed";
         task.setStatus(newStatus);
         task.setLastUpdate(new Date());
@@ -239,34 +161,20 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
     }
 
     @Override
-    public void seeActivities(User user) {
-        List<Task> taskList = repository.findUserActivities(user);
-        if (taskList.size() != 0) {
-            while (true) {
-                try {
-                    ApplicationContext.getDemonstration().seeActivitiesMenu();
-                    int seeActivitiesBasedOn = viewCategories();
-                    if (seeActivitiesBasedOn == 4) {
-                        break;
-                    }
-                    ApplicationContext.getDemonstration().howSeeActivities();
-                    int ascOrDesc = ascOrDesc();
-                    List<Task> tasks = repository.sortActivities(seeActivitiesBasedOn, ascOrDesc, user);
-                    ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
-                } catch (InputMismatchException exception) {
-                    System.out.println("You should enter number");
-                    System.out.println("Try again");
-                }
-            }
-        } else {
-            System.out.println("You don't have any task yet");
-        }
+    public List<Task> seeActivities(User user) {
+        List<Task> tasks;
+        ApplicationContext.getDemonstration().seeActivitiesMenu();
+        int seeActivitiesBasedOn = viewCategories();
+        ApplicationContext.getDemonstration().howSeeActivities();
+        int ascOrDesc = ascOrDesc();
+        tasks = repository.sortActivities(seeActivitiesBasedOn, ascOrDesc, user);
+        return tasks;
     }
 
-    private int viewCategories(){
+    private int viewCategories() {
         int seeActivitiesBasedOn;
         while (true) {
-            try{
+            try {
                 seeActivitiesBasedOn = new Scanner(System.in).nextInt();
                 if (seeActivitiesBasedOn >= 1 && seeActivitiesBasedOn <= 4) {
                     break;
@@ -274,7 +182,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("You should choose between menu options");
                     System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Try again");
             }
@@ -282,10 +190,10 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
         return seeActivitiesBasedOn;
     }
 
-    private int ascOrDesc(){
+    private int ascOrDesc() {
         int ascOrDesc;
         while (true) {
-            try{
+            try {
                 ascOrDesc = new Scanner(System.in).nextInt();
                 if (ascOrDesc == 1 || ascOrDesc == 2) {
                     break;
@@ -293,7 +201,7 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
                     System.out.println("You should choose between menu options");
                     System.out.println("Try again");
                 }
-            }catch (InputMismatchException exception){
+            } catch (InputMismatchException exception) {
                 System.out.println("You should enter number");
                 System.out.println("Try again");
             }
@@ -311,70 +219,100 @@ public class TaskServiceImpl extends BaseEntityServiceImpl<Task, Long, TaskRepos
 
     @Override
     public void removeUserTask(User user) {
-        List<Task> taskList = repository.findUserActivities(user);
-        if (taskList.size() != 0) {
-            while (true) {
-                try {
-                    ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(taskList);
-                    System.out.println("Do you want to delete a task");
-                    System.out.println("1.Yes                   2.No");
-                    int choice = new Scanner(System.in).nextInt();
-                    if (choice == 1) {
-                        System.out.print("Enter title of task you want to delete : ");
-                        String title = new Scanner(System.in).nextLine();
-                        boolean titleIsOk = repository.checkTitle(title, user);
-                        if (titleIsOk) {
-                            finalDelete(title,user);
-                            break;
-                        } else {
-                            System.out.println("This title doesn't belong to one of your tasks");
-                        }
-                    } else {
-                        System.out.println("Nothing deleted");
-                        break;
-                    }
-                } catch (InputMismatchException exception) {
-                    System.out.println("You should enter number");
-                    System.out.println("Try again");
-                }
+        while (true) {
+            System.out.print("Enter title of task you want to delete : ");
+            String title = new Scanner(System.in).nextLine();
+            boolean titleIsOk = repository.checkTitle(title, user);
+            if (titleIsOk) {
+                finalDelete(title, user);
+            } else {
+                System.out.println("This title doesn't belong to one of your tasks");
             }
-        } else {
-            System.out.println("You don't have any task yet");
+            break;
         }
     }
 
     @Override
     public void removeCompletedTasks(User user) {
         List<Task> taskList = repository.findUserActivities(user);
-        if(taskList.size() != 0){
-            while(true){
-                try{
-                    ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(taskList);
-                    System.out.println("Are you sure?");
-                    System.out.println("1.Yes    2.No");
-                    int choice = new Scanner(System.in).nextInt();
-                    if(choice == 1){
-                        for(Task task : taskList){
-                            if(task.getStatus().equals("completed")){
-                                delete(task);
-                            }
-                        }
-                        break;
-                    }else{
-                        System.out.println("Nothing deleted");
-                        break;
-                    }
-                }catch (InputMismatchException exception){
-                    System.out.println("You should enter number");
-                    System.out.println("Try again");
+        System.out.println("Are you sure?");
+        System.out.println("1.Yes    2.No");
+        int choice = new Scanner(System.in).nextInt();
+        if (choice == 1) {
+            for (Task task : taskList) {
+                if (task.getStatus().equals("completed")) {
+                    delete(task);
                 }
             }
-        }else{
-            System.out.println("You don't have any task yet");
+            System.out.println("Your completed tasks are deleted");
+        } else {
+            System.out.println("Nothing deleted");
         }
     }
 
-    private void finalDelete(String title, User user){
+    @Override
+    public void userActivities(User user) {
+        boolean exit = false;
+        while (!exit) {
+            List<Task> tasks = seeActivities(user);
+            if (tasks != null) {
+                while (true) {
+                    ApplicationContext.getDemonstrateInformation().demonstrateTaskInfo(tasks);
+                    ApplicationContext.getDemonstration().activities();
+                    int choice = chooseWhatToDo(user);
+                    if (choice == 1) {
+                        break;
+                    } else if (choice == 5) {
+                        exit = true;
+                        break;
+                    } else if (choice == 7) {
+                        exit = true;
+                        break;
+                    }
+                }
+            } else {
+                exit = true;
+            }
+        }
+    }
+
+    private int chooseWhatToDo(User user) {
+        int choice;
+        while (true) {
+            try {
+                choice = new Scanner(System.in).nextInt();
+                if (choice == 1) {
+                    break;
+                } else if (choice == 2) {
+                    changeStatus(user);
+                    break;
+                } else if (choice == 3) {
+                    changeTitle(user);
+                    break;
+                } else if (choice == 4) {
+                    changeContent(user);
+                    break;
+                } else if (choice == 5) {
+                    removeCompletedTasks(user);
+                    break;
+                } else if (choice == 6) {
+                    removeUserTask(user);
+                    break;
+                } else if (choice == 7) {
+                    break;
+                } else {
+                    System.out.println("You should choose between menu options");
+                }
+
+            } catch (InputMismatchException exception) {
+                System.out.println("You should enter number");
+                System.out.println("try again");
+            }
+        }
+        return choice;
+    }
+
+    private void finalDelete(String title, User user) {
         System.out.println("Final permission");
         System.out.println("1.Delete it           2.I regret");
         int finalChoice = new Scanner(System.in).nextInt();

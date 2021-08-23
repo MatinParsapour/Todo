@@ -60,25 +60,15 @@ public class UserServiceImpl extends BaseEntityServiceImpl<User, Long, UserRepos
                 ApplicationContext.getDemonstration().choicesMenu();
                 int choice = new Scanner(System.in).nextInt();
                 if (choice == 1) {
-                    ApplicationContext.getTaskServiceImpl().seeActivities(findById(userId));
+                    ApplicationContext.getTaskServiceImpl().userActivities(findById(userId));
                 } else if (choice == 2) {
                     ApplicationContext.getTaskServiceImpl().addActivity(findById(userId));
                 } else if (choice == 3) {
-                    ApplicationContext.getTaskServiceImpl().changeStatus(findById(userId));
-                } else if (choice == 4) {
-                    ApplicationContext.getTaskServiceImpl().changeTitle(findById(userId));
-                } else if (choice == 5) {
-                    ApplicationContext.getTaskServiceImpl().changeContent(findById(userId));
-                } else if (choice == 6) {
-                    ApplicationContext.getTaskServiceImpl().removeCompletedTasks(findById(userId));
-                } else if (choice == 7) {
-                    ApplicationContext.getTaskServiceImpl().removeUserTask(findById(userId));
-                } else if (choice == 8) {
                     profile(userId);
-                } else if (choice == 9) {
+                } else if (choice == 4) {
                     logOut(findById(userId));
                     break;
-                }else if(choice == 10){
+                } else if (choice == 5) {
                     break;
                 }
             } catch (InputMismatchException exception) {
